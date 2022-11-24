@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-	A simple backup service for mealpedant to a local device that, powered by <a href='https://www.staticpi.com' target='_blank' rel='noopener noreferrer'>staticpi.com</a>
+	A simple backup service for mealpedant to a local device, powered by <a href='https://www.staticpi.com' target='_blank' rel='noopener noreferrer'>staticpi.com</a>
 </p>
 
 <p align="center">
@@ -31,7 +31,6 @@
 
 ## Run step
 1) ```./up``` build, or re-build, docker container
-
 
 
 
