@@ -23,7 +23,7 @@ RUN mkdir /backups /logs \
 USER ${DOCKER_APP_USER}
 
 # This gets automatically updated via create_release.sh
-#RUN wget https://github.com/mrjackwills/mealpedant_backup_pi/releases/download/v0.1.9/mealpedant_backup_pi_linux_armv6.tar.gz \
+#RUN wget https://github.com/mrjackwills/mealpedant_backup_pi/releases/download/v0.0.1/mealpedant_backup_pi_linux_armv6.tar.gz \
 #	&& tar xzvf mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi && rm mealpedant_backup_pi_linux_armv6.tar.gz \
 #	&& chown ${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /app/
 
