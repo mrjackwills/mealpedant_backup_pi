@@ -1,0 +1,35 @@
+[package]
+name = "mealpedant_backup_pi"
+version = "0.1.0"
+edition = "2021"
+authors = ["Jack Wills <email@mrjackwills.com>"]
+repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
+description = "mealpedant backup pi client"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[target.'cfg(not(target_arch = "x86_64"))'.dependencies]
+openssl = { version = '0.10', features = ["vendored"] }
+
+[dependencies]
+base64 = "0.13"
+dotenvy = "0.15"
+figlet-rs = "0.1"
+futures-util = "0.3"
+reqwest = {version = "0.11", features=["json", "native-tls"]}
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+simple-signal = "1.1"
+thiserror = "1.0"
+time = {version="0.3", features=["local-offset", "macros"]}
+time-tz = "1.0"
+tokio = {version ="1.22", features=["full"]}
+tokio-tungstenite={version= "0.17", features = ["native-tls"]}
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip=true
+debug = false

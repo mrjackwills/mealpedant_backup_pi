@@ -1,0 +1,46 @@
+name: Release CI
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      ####################################
+      ## Build binaries for release page #
+      ####################################
+      
+      # Install stable rust, and associated tools
+      - name: install rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # Install cross-rs
+      - name: install cross
+        run: cargo install cross --git https://github.com/cross-rs/cross
+
+      # Build for linux armv6, aka 32 bit pi zero w
+      - name: build arm-unknown-linux-musleabihf
+        run: cross build --target arm-unknown-linux-musleabihf --release
+      # Compress ouput into tar
+      - name: compress armv6 binary
+        run: tar -C target/arm-unknown-linux-musleabihf/release -czf ./mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi
+      
+      ###################
+      ## Create release #
+      ###################
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: ${{ github.ref_name }}
+          body_path: ".github/release-body.md"
+          draft: false
+          files: |
+            mealpedant_backup_pi_linux_armv6.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

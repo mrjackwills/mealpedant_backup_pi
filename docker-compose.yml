@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  mealpedant_backup_pi:
+    image: mealpedant_backup_pi:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_UID=${DOCKER_UID}
+        - DOCKER_GUID=${DOCKER_GUID}
+        - DOCKER_TIME_CONT=${DOCKER_TIME_CONT}
+        - DOCKER_TIME_CITY=${DOCKER_TIME_CITY}
+    container_name: mealpedant_backup_pi
+    volumes:
+      - $HOME/mealpedant_backup/backups:/backups
+      - $HOME/mealpedant_backup/.env:/app_env/.env:ro
+    cap_drop:
+      - all
+    security_opt:
+      - no-new-privileges
+    ipc: private
+    restart: always
+    networks:
+      - mealpedant_backup_pi-net
+    logging:
+      options:
+        max-size: 4mb
+    deploy:
+      resources:
+        limits:
+          memory: 8M
+networks:
+  mealpedant_backup_pi-net:
+    name: mealpedant_backup_pi-net
