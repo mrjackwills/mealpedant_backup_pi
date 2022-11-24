@@ -426,7 +426,7 @@ dependencies = [
 
 [[package]]
 name = "mealpedant_backup_pi"
-version = "0.1.0"
+version = "0.0.1"
 dependencies = [
  "base64",
  "dotenvy",
