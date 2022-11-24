@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-	A simple backup service for mealpedant to a local device that, powered by <a href='https://www.staticpi.com' target='_blank' rel='noopener noreferrer'>staticpi.com</a>
+	A simple backup service for mealpedant to a local device, powered by <a href='https://www.staticpi.com' target='_blank' rel='noopener noreferrer'>staticpi.com</a>
 </p>
 
 <p align="center">
@@ -32,8 +32,13 @@
 ## Run step
 1) ```./up``` build, or re-build, docker container
 
+### Download
 
-
+```bash
+wget https://www.github.com/mrjackwills/mealpedant_backup_pi/releases/latest/download/mealpedant_backup_pi_linux_armv6.tar.gz && \
+tar xzvf mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi && \
+rm mealpedant_backup_pi_linux_armv6.tar.gz
+```
 
 ## Build for pi
 

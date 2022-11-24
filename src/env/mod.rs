@@ -14,7 +14,7 @@ pub struct EnvTimeZone(String);
 
 impl EnvTimeZone {
     pub fn new(x: impl Into<String>) -> Self {
-		let x = x.into();
+        let x = x.into();
         if timezones::get_by_name(&x).is_some() {
             Self(x)
         } else {

@@ -119,7 +119,6 @@ update_release_body_and_changelog () {
 }
 
 # update version in cargo.toml + docker-compose.yml, to match selected current version
-
 update_version_number_in_files () {
 	# Update Cargo.toml version
 	sed -i "s|^version = .*|version = \"${MAJOR}.${MINOR}.${PATCH}\"|" Cargo.toml
