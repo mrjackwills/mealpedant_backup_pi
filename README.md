@@ -32,7 +32,13 @@
 ## Run step
 1) ```./up``` build, or re-build, docker container
 
+### Download
 
+```bash
+wget https://www.github.com/mrjackwills/mealpedant_backup_pi/releases/latest/download/mealpedant_backup_pi_linux_armv6.tar.gz && \
+tar xzvf mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi && \
+rm mealpedant_backup_pi_linux_armv6.tar.gz
+```
 
 ## Build for pi
 
