@@ -61,7 +61,4 @@ impl ConnectionDetails {
         debug!(%connected_at);
     }
 
-    // pub fn get_connect_instant(&self) -> Instant {
-    //     self.connection_instant.unwrap_or_else(Instant::now)
-    // }
 }

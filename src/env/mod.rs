@@ -14,9 +14,9 @@ pub struct EnvTimeZone(String);
 
 impl EnvTimeZone {
     pub fn new(x: impl Into<String>) -> Self {
-        let x = x.into();
-        if timezones::get_by_name(&x).is_some() {
-            Self(x)
+        let zone = x.into();
+        if timezones::get_by_name(&zone).is_some() {
+            Self(zone)
         } else {
             Self("Etc/UTC".into())
         }
@@ -87,7 +87,6 @@ impl AppEnv {
             start_time: SystemTime::now(),
             timezone: Self::parse_timezone(&env_map),
             trace: Self::parse_boolean("TRACE", &env_map),
-            // utc_offset: Self::parse_offset(&env_map)?,
             ws_address: Self::parse_string("WS_ADDRESS", &env_map)?,
             ws_apikey: Self::parse_string("WS_APIKEY", &env_map)?,
             ws_password: Self::parse_string("WS_PASSWORD", &env_map)?,
