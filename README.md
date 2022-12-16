@@ -23,14 +23,14 @@
 
 | directory | reason|
 | --- | --- |
-|```~/```			| Location of client|
-|```~/backups```	| Location of backups |
-|```~/logs```		| Location of logs |
-|```~/.env```		| enviromental variables, make sure in production mode|
+|```~/mealpedant_backup/```			| Location of client|
+|```~/mealpedant_backup/backups```	| Location of backups |
+|```~/mealpedant_backup/logs```		| Location of logs |
+|```~/mealpedant_backup/.env```		| enviromental variables, make sure in production mode|
 
 
 ## Run step
-1) ```./up``` build, or re-build, docker container
+1) ```./run.sh``` build, or re-build, docker container
 
 ### Download
 
