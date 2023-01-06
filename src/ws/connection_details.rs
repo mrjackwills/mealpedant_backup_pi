@@ -60,5 +60,4 @@ impl ConnectionDetails {
         let connected_at = format!("{} {}", now.date(), now.time());
         debug!(%connected_at);
     }
-
 }
