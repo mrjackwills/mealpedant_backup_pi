@@ -1,5 +1,5 @@
 ### Chores
-+ rigin/dev) chore: dependencies updated, [9b52f4f683f67a1944e12ecf7ddb659a8b25e05a], [ddce8491bdc61f81adf0a6707b2b4d20b7aea710]
++ dependencies updated, [9b52f4f683f67a1944e12ecf7ddb659a8b25e05a], [ddce8491bdc61f81adf0a6707b2b4d20b7aea710]
 + Rust 1.66 linting, [9cbfae832bbcdb10f187174d2742f11781460006]
 
 ### Docs
