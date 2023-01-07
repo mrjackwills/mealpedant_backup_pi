@@ -13,6 +13,7 @@
 <p align="center">
 	Built in <a href='https://www.rust-lang.org/' target='_blank' rel='noopener noreferrer'>Rust</a>,
 	for <a href='https://docker.com' target='_blank' rel='noopener noreferrer'> Docker</a>
+	<br>
 	see the accompanying <a href='https://www.github.com/mrjackwills/mealpedant_backup_server' target='_blank' rel='noopener noreferrer'>server client</a>
 
 </p>
