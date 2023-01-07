@@ -12,7 +12,9 @@
 
 <p align="center">
 	Built in <a href='https://www.rust-lang.org/' target='_blank' rel='noopener noreferrer'>Rust</a>,
-	on <a href='https://docker.com' target='_blank' rel='noopener noreferrer'> Docker</a>
+	for <a href='https://docker.com' target='_blank' rel='noopener noreferrer'> Docker</a>
+	see the accompanying <a href='https://www.github.com/mrjackwills/mealpedant_backup_server' target='_blank' rel='noopener noreferrer'>server client</a>
+
 </p>
 
 ## Required software
@@ -23,14 +25,14 @@
 
 | directory | reason|
 | --- | --- |
-|```~/```			| Location of client|
-|```~/backups```	| Location of backups |
-|```~/logs```		| Location of logs |
-|```~/.env```		| enviromental variables, make sure in production mode|
+|```~/mealpedant_backup/```			| Location of client|
+|```~/mealpedant_backup/backups```	| Location of backups |
+|```~/mealpedant_backup/logs```		| Location of logs |
+|```~/mealpedant_backup/.env```		| enviromental variables, make sure in production mode|
 
 
 ## Run step
-1) ```./up``` build, or re-build, docker container
+1) ```./run.sh``` build, or re-build, docker container
 
 ### Download
 

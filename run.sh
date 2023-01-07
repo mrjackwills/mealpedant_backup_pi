@@ -45,7 +45,6 @@ production_rebuild () {
 	docker compose up -d --build
 }
 
-
 main() {
 	cmd=(dialog --backtitle "Start container" --radiolist "choose environment" 14 80 16)
 	options=(
@@ -63,8 +62,7 @@ main() {
 	do
 		case $choice in
 			0)
-				exit
-				break;;
+				exit;;
 			1)
 				production_up
 				break;;

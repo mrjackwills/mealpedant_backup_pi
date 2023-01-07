@@ -14,9 +14,9 @@ pub struct EnvTimeZone(String);
 
 impl EnvTimeZone {
     pub fn new(x: impl Into<String>) -> Self {
-        let x = x.into();
-        if timezones::get_by_name(&x).is_some() {
-            Self(x)
+        let zone = x.into();
+        if timezones::get_by_name(&zone).is_some() {
+            Self(zone)
         } else {
             Self("Etc/UTC".into())
         }
@@ -31,11 +31,10 @@ impl EnvTimeZone {
 
 #[derive(Debug, Clone)]
 pub struct AppEnv {
-    pub debug: bool,
     pub location_backup: String,
+    pub log_level: tracing::Level,
     pub start_time: SystemTime,
     pub timezone: EnvTimeZone,
-    pub trace: bool,
     pub ws_address: String,
     pub ws_apikey: String,
     pub ws_password: String,
@@ -70,6 +69,17 @@ impl AppEnv {
         )
     }
 
+    /// Parse debug and/or trace into tracing level
+    fn parse_log(map: &EnvHashMap) -> tracing::Level {
+        if Self::parse_boolean("LOG_TRACE", map) {
+            tracing::Level::TRACE
+        } else if Self::parse_boolean("LOG_DEBUG", map) {
+            tracing::Level::DEBUG
+        } else {
+            tracing::Level::INFO
+        }
+    }
+
     /// Load, and parse .env file, return AppEnv
     fn generate() -> Result<Self, AppError> {
         let env_map = env::vars()
@@ -79,15 +89,13 @@ impl AppEnv {
 
         Ok(Self {
             // check location exists
-            debug: Self::parse_boolean("DEBUG", &env_map),
             location_backup: Self::check_file_exists(Self::parse_string(
                 "LOCATION_BACKUP",
                 &env_map,
             )?)?,
             start_time: SystemTime::now(),
             timezone: Self::parse_timezone(&env_map),
-            trace: Self::parse_boolean("TRACE", &env_map),
-            // utc_offset: Self::parse_offset(&env_map)?,
+            log_level: Self::parse_log(&env_map),
             ws_address: Self::parse_string("WS_ADDRESS", &env_map)?,
             ws_apikey: Self::parse_string("WS_APIKEY", &env_map)?,
             ws_password: Self::parse_string("WS_PASSWORD", &env_map)?,
@@ -109,7 +117,7 @@ impl AppEnv {
         match Self::generate() {
             Ok(s) => s,
             Err(e) => {
-                println!("\n\x1b[31m{}\x1b[0m\n", e);
+                println!("\n\x1b[31m{e}\x1b[0m\n");
                 std::process::exit(1);
             }
         }
@@ -201,6 +209,84 @@ mod tests {
             AppError::FileNotFound(value) => assert_eq!(value, "./some_random_file.txt"),
             _ => unreachable!(),
         };
+    }
+
+    #[test]
+    fn env_parse_log_valid() {
+        // FIXTURES
+        let map = HashMap::from([("RANDOM_STRING".to_owned(), "123".to_owned())]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::INFO);
+
+        // FIXTURES
+        let map = HashMap::from([("LOG_DEBUG".to_owned(), "false".to_owned())]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::INFO);
+
+        // FIXTURES
+        let map = HashMap::from([("LOG_TRACE".to_owned(), "false".to_owned())]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::INFO);
+
+        // FIXTURES
+        let map = HashMap::from([
+            ("LOG_DEBUG".to_owned(), "false".to_owned()),
+            ("LOG_TRACE".to_owned(), "false".to_owned()),
+        ]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::INFO);
+
+        // FIXTURES
+        let map = HashMap::from([
+            ("LOG_DEBUG".to_owned(), "true".to_owned()),
+            ("LOG_TRACE".to_owned(), "false".to_owned()),
+        ]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::DEBUG);
+
+        // FIXTURES
+        let map = HashMap::from([
+            ("LOG_DEBUG".to_owned(), "true".to_owned()),
+            ("LOG_TRACE".to_owned(), "true".to_owned()),
+        ]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::TRACE);
+
+        // FIXTURES
+        let map = HashMap::from([
+            ("LOG_DEBUG".to_owned(), "false".to_owned()),
+            ("LOG_TRACE".to_owned(), "true".to_owned()),
+        ]);
+
+        // ACTION
+        let result = AppEnv::parse_log(&map);
+
+        // CHECK
+        assert_eq!(result, tracing::Level::TRACE);
     }
 
     #[test]

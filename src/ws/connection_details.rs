@@ -60,8 +60,4 @@ impl ConnectionDetails {
         let connected_at = format!("{} {}", now.date(), now.time());
         debug!(%connected_at);
     }
-
-    // pub fn get_connect_instant(&self) -> Instant {
-    //     self.connection_instant.unwrap_or_else(Instant::now)
-    // }
 }

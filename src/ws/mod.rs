@@ -109,7 +109,7 @@ pub async fn open_connection(app_envs: AppEnv, rx: Sender<InternalMessage>) {
                 info!("aborted spawns, incoming_ws_message done, reconnect next");
             }
             Err(e) => {
-                let connect_error = format!("{}", e);
+                let connect_error = format!("{e}");
                 error!(%connect_error);
                 connection_details.fail_connect();
             }
