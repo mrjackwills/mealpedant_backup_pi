@@ -28,7 +28,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 8M
+          memory: 16M
 networks:
   mealpedant_backup_pi-net:
     name: mealpedant_backup_pi-net
