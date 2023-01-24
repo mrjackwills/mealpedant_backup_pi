@@ -25,23 +25,23 @@ struct PostResponse {
 
 /// Make a http request to get an access token
 async fn get_auth_token(app_envs: &AppEnv) -> Result<String, AppError> {
-	let request = reqwest::Client::builder()
-	.connect_timeout(std::time::Duration::from_millis(5000))
-	.gzip(true)
-	.brotli(true)
-	.user_agent(format!(
-		"{}/{}",
-		env!("CARGO_PKG_NAME"),
-		env!("CARGO_PKG_VERSION")
-	))
-	.build()?
-	.post(&app_envs.ws_token_address)
-	.json(&PostRequest::from(app_envs))
-	.send()
-	.await?
-	.json::<PostResponse>()
-	.await?;
-Ok(request.response)
+    let request = reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_millis(5000))
+        .gzip(true)
+        .brotli(true)
+        .user_agent(format!(
+            "{}/{}",
+            env!("CARGO_PKG_NAME"),
+            env!("CARGO_PKG_VERSION")
+        ))
+        .build()?
+        .post(&app_envs.ws_token_address)
+        .json(&PostRequest::from(app_envs))
+        .send()
+        .await?
+        .json::<PostResponse>()
+        .await?;
+    Ok(request.response)
 }
 
 /// Connect to wesbsocket server
