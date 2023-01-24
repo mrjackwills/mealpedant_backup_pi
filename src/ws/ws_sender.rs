@@ -1,4 +1,4 @@
-use base64::decode;
+use base64::{engine, Engine};
 use futures_util::lock::Mutex;
 use futures_util::SinkExt;
 use std::sync::Arc;
@@ -27,7 +27,7 @@ impl WSSender {
             "{}/{}",
             self.app_envs.location_backup, backup_data.file_name
         );
-        Ok(fs::write(file_name, decode(backup_data.file_as_b64)?).await?)
+        Ok(fs::write(file_name, engine::general_purpose::STANDARD.decode(backup_data.file_as_b64)?).await?)
     }
 
     /// Handle text message, in this program they will all be json text
