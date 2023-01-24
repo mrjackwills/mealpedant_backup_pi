@@ -1,20 +1,13 @@
-### 2023-01-07
+### 2023-01-24
 
 ### Chores
-+ dependencies updated, [9b52f4f683f67a1944e12ecf7ddb659a8b25e05a], [ddce8491bdc61f81adf0a6707b2b4d20b7aea710]
-+ Rust 1.66 linting, [9cbfae832bbcdb10f187174d2742f11781460006]
-
-### Docs
-+ readme, [cdc22b663b5bab2747798e68ee7bab697076097a], [8ca153db933e0978f8f81bcab08a39a65cff4b62]
++ update dependencies, [aa84c26f8f84efd60f694b3aa1d9c7f362512c5b]
 
 ### Features
-+ github action cache, [4b3b30007e243174239345bd24bda4783a6658b0]
++ reqwest timeout & user agent, [85a0a825584860050064b550c0fd1223416fabfc]
 
 ### Fixes
-+ run.sh exec, [d1b90825564c60411863f4722dda9c2b7bc3a150]
-
-### Refactors
-+ dead code removed, [b761e4f2a35ad200c121ce296e37a04877471f72]
++ remove base64 depreciated methods, [3c43016cec9a212246607291d49f08ee2ba82b96]
 
 
 see <a href='https://github.com/mrjackwills/mealpedant_backup_pi/blob/main/CHANGELOG.md'>CHANGELOG.md</a> for more details

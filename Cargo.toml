@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_pi"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
@@ -11,11 +11,11 @@ description = "mealpedant backup pi client"
 openssl = { version = '0.10', features = ["vendored"] }
 
 [dependencies]
-base64 = "0.20"
+base64 = "0.21"
 dotenvy = "0.15"
 figlet-rs = "0.1"
 futures-util = "0.3"
-reqwest = {version = "0.11", features=["json", "native-tls"]}
+reqwest = {version = "0.11", features=["json", "native-tls", "gzip", "brotli", "json"]}
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 simple-signal = "1.1"
