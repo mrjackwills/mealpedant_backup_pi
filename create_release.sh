@@ -232,11 +232,11 @@ release_flow() {
 	release_continue "git checkout main"
 	git checkout main
 
-	echo "cargo check"
-	cargo check
-
 	release_continue "git merge --no-ff \"${RELEASE_BRANCH}\" -m \"chore: merge ${RELEASE_BRANCH} into main\"" 
 	git merge --no-ff "$RELEASE_BRANCH" -m "chore: merge ${RELEASE_BRANCH} into main"
+
+	echo -e "\n${PURPLE}cargo check${RESET}\n"
+	cargo check
 
 	release_continue "git tag -am \"${RELEASE_BRANCH}\" \"$NEW_TAG_WITH_V\""
 	git tag -am "${RELEASE_BRANCH}" "$NEW_TAG_WITH_V"
