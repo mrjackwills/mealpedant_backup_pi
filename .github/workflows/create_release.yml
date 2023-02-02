@@ -1,15 +1,17 @@
 name: Release CI
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    tags: 'v[0-9]+.[0-9]+.[0-9]+'
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Exit if not on main branch
+        if: github.ref != 'refs/heads/main'
+        run: exit 1
 
+      - uses: actions/checkout@v3
+      
       ####################################
       ## Build binaries for release page #
       ####################################
