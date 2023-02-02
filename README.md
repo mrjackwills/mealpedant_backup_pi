@@ -29,7 +29,7 @@
 |```~/mealpedant_backup/```			| Location of client|
 |```~/mealpedant_backup/backups```	| Location of backups |
 |```~/mealpedant_backup/logs```		| Location of logs |
-|```~/mealpedant_backup/.env```		| enviromental variables, make sure in production mode|
+|```~/mealpedant_backup/.env```		| environmental variables, make sure in production mode|
 
 
 ## Run step
