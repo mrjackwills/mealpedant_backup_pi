@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # rust create_release
-# v0.2.0
+# v0.2.7
+
 
 PACKAGE_NAME='mealpedant_backup_pi'
 STAR_LINE='****************************************'
@@ -182,6 +183,7 @@ ask_continue () {
 
 # Build target as github action would
 cargo_build () {
+	echo -e "\n${GREEN}cross build --target arm-unknown-linux-musleabihf --release${RESET}"
 	cross build --target arm-unknown-linux-musleabihf --release
 	ask_continue
 }
@@ -198,12 +200,23 @@ release_continue () {
 	ask_continue
 }
 
+check_typos () {
+	echo -e "\n${YELLOW}checking for typos${RESET}"
+	typos
+	ask_continue
+}
+
 # Full flow to create a new release
 release_flow() {
+	
+	check_typos
+
 	check_git
 	get_git_remote_url
+
 	cargo_test
 	cargo_build
+
 	cd "${CWD}" || error_close "Can't find ${CWD}"
 	check_tag
 	
@@ -222,7 +235,10 @@ release_flow() {
 	
 	echo "cargo fmt"
 	cargo fmt
-	
+
+	echo -e "\n${PURPLE}cargo check${RESET}"
+	cargo check
+
 	release_continue "git add ."
 	git add .
 
@@ -230,13 +246,9 @@ release_flow() {
 	git commit -m "chore: release ${NEW_TAG_WITH_V}"
 
 	release_continue "git checkout main"
+	echo -e "git merge --no-ff \"${RELEASE_BRANCH}\" -m \"chore: merge ${RELEASE_BRANCH} into main\"" 
 	git checkout main
-
-	release_continue "git merge --no-ff \"${RELEASE_BRANCH}\" -m \"chore: merge ${RELEASE_BRANCH} into main\"" 
 	git merge --no-ff "$RELEASE_BRANCH" -m "chore: merge ${RELEASE_BRANCH} into main"
-
-	echo -e "\n${PURPLE}cargo check${RESET}\n"
-	cargo check
 
 	release_continue "git tag -am \"${RELEASE_BRANCH}\" \"$NEW_TAG_WITH_V\""
 	git tag -am "${RELEASE_BRANCH}" "$NEW_TAG_WITH_V"
@@ -247,7 +259,7 @@ release_flow() {
 	release_continue "git checkout dev"
 	git checkout dev
 
-	release_continue "git merge --no-ff main -m 'chore: merge main into dev'"
+	release_continue "git merge --no-ff main -m \"chore: merge main into dev\""
 	git merge --no-ff main -m 'chore: merge main into dev'
 
 	release_continue "git push origin dev"
