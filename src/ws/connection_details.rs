@@ -57,7 +57,6 @@ impl ConnectionDetails {
         self.count = 0;
         self.connection_instant = Some(Instant::now());
         let now = OffsetDateTime::now_utc();
-        let connected_at = format!("{} {}", now.date(), now.time());
-        debug!(%connected_at);
+        debug!("connected at:: {} {}", now.date(), now.time());
     }
 }
