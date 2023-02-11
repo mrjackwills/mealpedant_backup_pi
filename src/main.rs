@@ -1,12 +1,12 @@
 #![forbid(unsafe_code)]
 // Warning - These are indeed pedantic
 #![warn(
-    clippy::pedantic,
+    clippy::expect_used,
     clippy::nursery,
+    clippy::pedantic,
+    clippy::todo,
     clippy::unused_async,
     clippy::unwrap_used,
-    clippy::expect_used,
-    clippy::todo
 )]
 #![allow(clippy::module_name_repetitions, clippy::doc_markdown)]
 // Only allow when debugging

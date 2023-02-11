@@ -1,6 +1,6 @@
 use time::OffsetDateTime;
 use tokio::sync::broadcast::Sender;
-use tracing::debug;
+use tracing::info;
 
 use crate::{env::EnvTimeZone, ws::InternalMessage};
 
@@ -19,7 +19,7 @@ impl Croner {
         loop {
             let now = OffsetDateTime::now_utc().to_offset(timezone.get_offset());
             if now.hour() == 3 && now.minute() == 0 {
-                debug!("sending backup request to via internal ThreadChannel");
+                info!("sending backup request to via internal ThreadChannel");
                 sx.send(InternalMessage::RequestBackup).unwrap_or_default();
             }
             tokio::time::sleep(std::time::Duration::from_secs(60)).await;
