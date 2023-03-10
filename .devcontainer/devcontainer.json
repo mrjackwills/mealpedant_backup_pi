@@ -1,5 +1,4 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.217.4/containers/rust
 {
 	"name": "Rust",
 	"build": {
@@ -9,23 +8,28 @@
 			// Use bullseye when on local on arm64/Apple Silicon.
 			"VARIANT": "bullseye"
 		}
+		
 	},
 	"runArgs": [
 		"--cap-add=SYS_PTRACE",
 		"--security-opt",
-		"seccomp=unconfined"
+		"seccomp=unconfined",
+		"--net=host"
 	],
+
+	"containerEnv": {
+		"CARGO_REGISTRIES_CRATES_IO_PROTOCOL": "sparse"
+	},
+
+	// Set *default* container specific settings.json values on container create.
+
 	"mounts": [
 		"source=/dev/shm,target=/dev/shm,type=bind",
-		"source=/etc/localtime,target=/etc/localtime,type=bind,readonly"
+		"source=/etc/timezone,target=/etc/timezone,type=bind,readonly"
 	],
-
-	"postCreateCommand": "cargo install cross typos-cli",
-
 
 	"customizations": {
 		"vscode": {
-				// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"bmuskalla.vscode-tldr",
 				"christian-kohler.path-intellisense",
@@ -38,7 +42,6 @@
 				"timonwong.shellcheck",
 				"vadimcn.vscode-lldb"
 			],
-
 			"settings": {
 				"lldb.executable": "/usr/bin/lldb",
 				// VS Code don't watch files under ./target
@@ -50,8 +53,11 @@
 		}
 	},
 
+	"postCreateCommand": "cargo install cargo-watch typos-cli cross",
+
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
+
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest",
