@@ -20,7 +20,7 @@ impl Croner {
             let now = OffsetDateTime::now_utc().to_offset(timezone.get_offset());
             if now.hour() == 3 && now.minute() == 0 {
                 info!("sending backup request to via internal ThreadChannel");
-                sx.send(InternalMessage::RequestBackup).unwrap_or_default();
+                sx.send(InternalMessage::RequestBackup).ok();
             }
             tokio::time::sleep(std::time::Duration::from_secs(60)).await;
         }
