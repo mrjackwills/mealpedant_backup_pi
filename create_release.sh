@@ -112,7 +112,7 @@ update_release_body_and_changelog () {
 
 	# Update changelog to add links to commits [hex:8](url_with_full_commit)
 	# "[aaaaaaaaaabbbbbbbbbbccccccccccddddddddd]" -> "[aaaaaaaa](https:/www.../commit/aaaaaaaaaabbbbbbbbbbccccccccccddddddddd),"
-	sed -i -E "s=(\s)\[([0-9a-f]{8})([0-9a-f]{32})\]= [\2](${GIT_REPO_URL}/commit/\2\3)=g" ./CHANGELOG.md
+	sed -i -E "s=(\s)\[([0-9a-f]{8})([0-9a-f]{32})\]=[\2](${GIT_REPO_URL}/commit/\2\3)=g" ./CHANGELOG.md
 
 	# Update changelog to add links to closed issues - comma included!
 	# "closes [#1]" -> "closes [#1](https:/www.../issues/1)""
@@ -182,7 +182,7 @@ ask_continue () {
 }
 
 # Build target as github action would
-cargo_build () {
+cross_build () {
 	echo -e "\n${GREEN}cross build --target arm-unknown-linux-musleabihf --release${RESET}"
 	cross build --target arm-unknown-linux-musleabihf --release
 	ask_continue
@@ -215,7 +215,7 @@ release_flow() {
 	get_git_remote_url
 
 	cargo_test
-	cargo_build
+	cross_build
 
 	cd "${CWD}" || error_close "Can't find ${CWD}"
 	check_tag
@@ -288,7 +288,7 @@ main() {
 			0)
 				exit;;
 			1)
-				cargo_build_all
+				cross_build
 				main
 				break;;
 			2)
