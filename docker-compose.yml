@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   mealpedant_backup_pi:
-    image: mealpedant_backup_pi:0.1.2
+    image: mealpedant_backup_pi:0.1.3
     build:
       context: .
       dockerfile: Dockerfile
