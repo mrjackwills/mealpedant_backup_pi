@@ -1,3 +1,7 @@
+### Chores
++ alpine bump to 3.18, [5c1401c3c104676c84158f1ce2e210b3623bef70]
++ dependencies updated, [adaf080c4be2b590a5af7edcd4f57a6c04e82d28], [73d0f039c211cab10284f2bc18626ae6bf9df1f5]
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.3'>v0.1.3</a>
 ### 2023-03-10
 
