@@ -9,11 +9,7 @@ use futures_util::{
     StreamExt, TryStreamExt,
 };
 use std::sync::Arc;
-use tokio::{
-    net::TcpStream,
-    sync::broadcast::{Receiver, Sender},
-    task::JoinHandle,
-};
+use tokio::{net::TcpStream, sync::broadcast::Sender, task::JoinHandle};
 use tokio_tungstenite::{self, tungstenite::Message, MaybeTlsStream, WebSocketStream};
 use tracing::{error, info};
 
@@ -74,14 +70,18 @@ async fn incoming_ws_message(mut reader: WSReader, mut ws_sender: WSSender) {
 }
 
 /// Send a ws message to request a backup file, is executed by a cron type job on abother thread
-async fn incoming_internal_message(mut rx: Receiver<InternalMessage>, mut ws_sender: WSSender) {
-    while let Ok(_message) = rx.recv().await {
-        ws_sender.send_backup_request(Response::Backup).await;
-    }
+fn incoming_internal_message(sx: &Sender<InternalMessage>, ws_sender: &WSSender) -> JoinHandle<()> {
+    let mut ws_sender = ws_sender.clone();
+    let mut rx = sx.subscribe();
+    tokio::spawn(async move {
+        while let Ok(_message) = rx.recv().await {
+            ws_sender.send_backup_request(Response::Backup).await;
+        }
+    })
 }
 
 /// try to open WS connection, and spawn a ThreadChannel message handler
-pub async fn open_connection(app_envs: AppEnv, rx: Sender<InternalMessage>) {
+pub async fn open_connection(app_envs: AppEnv, sx: Sender<InternalMessage>) {
     let mut connection_details = ConnectionDetails::new();
     loop {
         info!("in connection loop, awaiting delay then try to connect");
@@ -97,15 +97,11 @@ pub async fn open_connection(app_envs: AppEnv, rx: Sender<InternalMessage>) {
 
                 let ws_sender = WSSender::new(app_envs.clone(), writer);
 
-                let in_ws_sender = ws_sender.clone();
-                let rx = rx.subscribe();
-                let internal_message_thread = tokio::spawn(async move {
-                    incoming_internal_message(rx, in_ws_sender).await;
-                });
+                let internal_thread = incoming_internal_message(&sx, &ws_sender);
 
                 incoming_ws_message(reader, ws_sender).await;
 
-                internal_message_thread.abort();
+                internal_thread.abort();
                 info!("aborted spawns, incoming_ws_message done, reconnect next");
             }
             Err(e) => {
