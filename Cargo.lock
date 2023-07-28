@@ -508,7 +508,7 @@ checksum = "b06a4cde4c0f271a446782e3eff8de789548ce57dbc8eca9292c27f4a42004b4"
 
 [[package]]
 name = "mealpedant_backup_pi"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "base64",
  "dotenvy",
