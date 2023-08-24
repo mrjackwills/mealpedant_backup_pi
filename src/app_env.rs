@@ -31,6 +31,7 @@ impl EnvTimeZone {
 
 #[derive(Debug, Clone)]
 pub struct AppEnv {
+    pub download_time: (u8, u8),
     pub location_backup: String,
     pub log_level: tracing::Level,
     pub start_time: SystemTime,
@@ -69,6 +70,19 @@ impl AppEnv {
         )
     }
 
+    fn parse_download_time(map: &EnvHashMap) -> (u8, u8) {
+        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_| String::from("0300"));
+
+        let hour = value[0..2].parse::<u8>().unwrap_or(3);
+        let minute = value[2..].parse::<u8>().unwrap_or(0);
+
+        if hour > 24 || minute > 59 {
+            (3, 0)
+        } else {
+            (hour, minute)
+        }
+    }
+
     /// Parse debug and/or trace into tracing level
     fn parse_log(map: &EnvHashMap) -> tracing::Level {
         if Self::parse_boolean("LOG_TRACE", map) {
@@ -87,7 +101,7 @@ impl AppEnv {
             .collect::<HashMap<String, String>>();
 
         Ok(Self {
-            // check location exists
+            download_time: Self::parse_download_time(&env_map),
             location_backup: Self::check_file_exists(Self::parse_string(
                 "LOCATION_BACKUP",
                 &env_map,
@@ -338,6 +352,47 @@ mod tests {
         // CHECK
         assert_eq!(result.0, "Etc/UTC");
     }
+
+    #[test]
+    fn env_parse_dl_ok() {
+        // FIXTURES
+        let mut map = HashMap::new();
+        map.insert("DL_TIME".to_owned(), "0445".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (4, 45));
+
+        map.insert("DL_TIME".to_owned(), "2122".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (21, 22));
+
+        map.insert("DL_TIME".to_owned(), "TIME".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (3, 0));
+
+        map.insert("DL_TIME".to_owned(), "0565".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (3, 0));
+
+        map.insert("DL_TIME".to_owned(), "3115".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (3, 0));
+    }
+
     #[test]
     fn env_panic_appenv() {
         // ACTION

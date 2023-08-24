@@ -1,4 +1,4 @@
-use crate::env::AppEnv;
+use crate::app_env::AppEnv;
 
 mod font;
 
@@ -79,7 +79,7 @@ impl Intro {
 #[allow(clippy::unwrap_used, clippy::pedantic)]
 #[cfg(test)]
 mod tests {
-    use crate::env::EnvTimeZone;
+    use crate::app_env::EnvTimeZone;
 
     use super::*;
     use std::time::SystemTime;
@@ -88,6 +88,7 @@ mod tests {
     fn word_art_new_ok() -> Result<(), String> {
         let na = String::from("na");
         let args = AppEnv {
+            download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
             start_time: SystemTime::now(),
@@ -106,6 +107,7 @@ mod tests {
     fn word_art_display_intro_trace() {
         let na = String::from("na");
         let args = AppEnv {
+            download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
             start_time: SystemTime::now(),
@@ -125,6 +127,7 @@ mod tests {
     fn word_art_display_intro_debug() {
         let na = String::from("na");
         let args = AppEnv {
+            download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::DEBUG,
             start_time: SystemTime::now(),
@@ -144,6 +147,7 @@ mod tests {
     fn word_art_display_intro() {
         let na = String::from("na");
         let args = AppEnv {
+            download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::INFO,
             start_time: SystemTime::now(),

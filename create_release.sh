@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # rust create_release
-# v0.3.0
+# v0.3.1
 
 
 PACKAGE_NAME='mealpedant_backup_pi'
@@ -110,7 +110,7 @@ update_release_body_and_changelog () {
 
 	# Update changelog to add links to commits [hex:8](url_with_full_commit)
 	# "[aaaaaaaaaabbbbbbbbbbccccccccccddddddddd]" -> "[aaaaaaaa](https:/www.../commit/aaaaaaaaaabbbbbbbbbbccccccccccddddddddd),"
-	sed -i -E "s=(\s)\[([0-9a-f]{8})([0-9a-f]{32})\]=[\2](${GIT_REPO_URL}/commit/\2\3)=g" ./CHANGELOG.md
+	sed -i -E "s= \[([0-9a-f]{8})([0-9a-f]{32})\]= [\1](${GIT_REPO_URL}/commit/\1\2)=g" ./CHANGELOG.md
 
 	# Update changelog to add links to closed issues - comma included!
 	# "closes [#1]" -> "closes [#1](https:/www.../issues/1)""

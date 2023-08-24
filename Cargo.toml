@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_pi"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
@@ -12,14 +12,14 @@ base64 = "0.21"
 dotenvy = "0.15"
 figlet-rs = "0.1"
 futures-util = "0.3"
-reqwest = {version = "0.11", default-features=false, features=["brotli", "gzip", "json", "rustls-tls-native-roots" ]}
+reqwest = { version = "0.11", default-features=false, features = ["brotli", "gzip", "json", "rustls-tls-native-roots" ] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 simple-signal = "1.1"
 thiserror = "1.0"
-time = {version="0.3", features=["local-offset", "macros"]}
+time = { version = "0.3", features = ["local-offset", "macros"] }
 time-tz = "2.0"
-tokio = {version ="1.29", features=["full"]}
+tokio = { version = "1.32", features=["full"] }
 tokio-tungstenite={version= "0.20", features = ["rustls-tls-native-roots"]}
 tracing = "0.1"
 tracing-subscriber = "0.3"
