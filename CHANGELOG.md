@@ -8,31 +8,31 @@
 ### 2023-07-28
 
 ### Chores
-+ dependencies updated,[229ea507](https://github.com/mrjackwills/mealpedant_backup_pi/commit/229ea5077bf3db41f0f24d75243d9918b32db8d9)
-+ create_release 0.3.0,[8cbec514](https://github.com/mrjackwills/mealpedant_backup_pi/commit/8cbec514e8732a312ade430d6345588e02a7d594)
++ dependencies updated, [229ea507](https://github.com/mrjackwills/mealpedant_backup_pi/commit/229ea5077bf3db41f0f24d75243d9918b32db8d9)
++ create_release 0.3.0, [8cbec514](https://github.com/mrjackwills/mealpedant_backup_pi/commit/8cbec514e8732a312ade430d6345588e02a7d594)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.4'>v0.1.4</a>
 ### 2023-06-07
 
 ### Chores
-+ alpine bump to 3.18,[5c1401c3](https://github.com/mrjackwills/mealpedant_backup_pi/commit/5c1401c3c104676c84158f1ce2e210b3623bef70)
-+ dependencies updated,[adaf080c](https://github.com/mrjackwills/mealpedant_backup_pi/commit/adaf080c4be2b590a5af7edcd4f57a6c04e82d28),[73d0f039](https://github.com/mrjackwills/mealpedant_backup_pi/commit/73d0f039c211cab10284f2bc18626ae6bf9df1f5),[1b22b017](https://github.com/mrjackwills/mealpedant_backup_pi/commit/1b22b0170186b4f2ef829577efc670d9b9b454a5),[7a55a6b5](https://github.com/mrjackwills/mealpedant_backup_pi/commit/7a55a6b56b45293d511615b7e6d762006e872685)
++ alpine bump to 3.18, [5c1401c3](https://github.com/mrjackwills/mealpedant_backup_pi/commit/5c1401c3c104676c84158f1ce2e210b3623bef70)
++ dependencies updated, [adaf080c](https://github.com/mrjackwills/mealpedant_backup_pi/commit/adaf080c4be2b590a5af7edcd4f57a6c04e82d28), [73d0f039](https://github.com/mrjackwills/mealpedant_backup_pi/commit/73d0f039c211cab10284f2bc18626ae6bf9df1f5), [1b22b017](https://github.com/mrjackwills/mealpedant_backup_pi/commit/1b22b0170186b4f2ef829577efc670d9b9b454a5), [7a55a6b5](https://github.com/mrjackwills/mealpedant_backup_pi/commit/7a55a6b56b45293d511615b7e6d762006e872685)
 
 ### Refactors
-+ dead code removed,[b2d1b7a5](https://github.com/mrjackwills/mealpedant_backup_pi/commit/b2d1b7a534ea660f29cc0b3f408d0d70101ef01f)
++ dead code removed, [b2d1b7a5](https://github.com/mrjackwills/mealpedant_backup_pi/commit/b2d1b7a534ea660f29cc0b3f408d0d70101ef01f)
 
 ### Reverts
-+ .devcontainer sparse protocol now default,[e0f0ed51](https://github.com/mrjackwills/mealpedant_backup_pi/commit/e0f0ed51b298e40c6b5fac52b4943c6f323b0df7)
++ .devcontainer sparse protocol now default, [e0f0ed51](https://github.com/mrjackwills/mealpedant_backup_pi/commit/e0f0ed51b298e40c6b5fac52b4943c6f323b0df7)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.3'>v0.1.3</a>
 ### 2023-03-10
 
 ### Chores
-+ Rust 1.68.0 linting,[189384f4](https://github.com/mrjackwills/mealpedant_backup_pi/commit/189384f4c3a0d4480e2fab74c00ddd559e95cb28)
-+ devcontainer sparse protocol,[9376d0db](https://github.com/mrjackwills/mealpedant_backup_pi/commit/9376d0db6bd3a4d7be7682b406c5f6e326c78517)
++ Rust 1.68.0 linting, [189384f4](https://github.com/mrjackwills/mealpedant_backup_pi/commit/189384f4c3a0d4480e2fab74c00ddd559e95cb28)
++ devcontainer sparse protocol, [9376d0db](https://github.com/mrjackwills/mealpedant_backup_pi/commit/9376d0db6bd3a4d7be7682b406c5f6e326c78517)
 
 ### Refactors
-+ use `.ok()`,[d6950850](https://github.com/mrjackwills/mealpedant_backup_pi/commit/d69508506f598a7f2e8e5a71e4d02598b0f0061c)
++ use `.ok()`, [d6950850](https://github.com/mrjackwills/mealpedant_backup_pi/commit/d69508506f598a7f2e8e5a71e4d02598b0f0061c)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.2'>v0.1.2</a>
 ### 2023-02-11
