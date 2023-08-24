@@ -70,19 +70,16 @@ impl AppEnv {
         )
     }
 
-    fn parse_download_time(map: &EnvHashMap) -> Result<(u8, u8), AppError> {
-        let value = Self::parse_string("DL_TIME", map)?;
-        if value.chars().count() != 4 {
-            return Err(AppError::Time(value));
-        }
+    fn parse_download_time(map: &EnvHashMap) -> (u8, u8) {
+        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_|String::from("0300"));
 
         let hour = value[0..2].parse::<u8>().unwrap_or(3);
         let minute = value[2..].parse::<u8>().unwrap_or(0);
 
         if hour > 24 || minute > 59 {
-            Err(AppError::Time(value))
+            (3,0)
         } else {
-            Ok((hour, minute))
+            (hour, minute)
         }
     }
 
@@ -104,7 +101,7 @@ impl AppEnv {
             .collect::<HashMap<String, String>>();
 
         Ok(Self {
-            download_time: Self::parse_download_time(&env_map)?,
+            download_time: Self::parse_download_time(&env_map),
             location_backup: Self::check_file_exists(Self::parse_string(
                 "LOCATION_BACKUP",
                 &env_map,
@@ -360,53 +357,43 @@ mod tests {
     fn env_parse_dl_ok() {
         // FIXTURES
         let mut map = HashMap::new();
-        map.insert("DL_TIME".to_owned(), "0330".to_owned());
+        map.insert("DL_TIME".to_owned(), "0445".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
 
-        assert!(result.is_ok());
-        let result = result.unwrap();
-        assert_eq!(result, (3, 30));
+        assert_eq!(result, (4, 45));
 
         map.insert("DL_TIME".to_owned(), "2122".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
 
-        assert!(result.is_ok());
-        let result = result.unwrap();
         assert_eq!(result, (21, 22));
-    }
 
-    #[test]
-    fn env_parse_dl_time_err() {
-        // FIXTURES
-        let mut map = HashMap::new();
-        map.insert("DL_TIME".to_owned(), "0360".to_owned());
+        map.insert("DL_TIME".to_owned(), "TIME".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
 
-        assert!(result.is_err());
+        assert_eq!(result, (3, 0));
 
-        match result.unwrap_err() {
-            AppError::Time(value) => assert_eq!(value, "0360"),
-            _ => unreachable!(),
-        };
-
-        map.insert("DL_TIME".to_owned(), "2501".to_owned());
+		
+        map.insert("DL_TIME".to_owned(), "0565".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
 
-        assert!(result.is_err());
+        assert_eq!(result, (3, 0));
 
-        match result.unwrap_err() {
-            AppError::Time(value) => assert_eq!(value, "2501"),
-            _ => unreachable!(),
-        };
+		map.insert("DL_TIME".to_owned(), "3115".to_owned());
+
+        // ACTION
+        let result = AppEnv::parse_download_time(&map);
+
+        assert_eq!(result, (3, 0));
     }
+
 
     #[test]
     fn env_panic_appenv() {
