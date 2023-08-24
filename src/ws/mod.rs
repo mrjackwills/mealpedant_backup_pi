@@ -15,7 +15,7 @@ use tracing::{error, info};
 
 mod ws_sender;
 
-use crate::{env::AppEnv, ws_messages::Response};
+use crate::{app_env::AppEnv, ws_messages::Response};
 
 use self::ws_sender::WSSender;
 

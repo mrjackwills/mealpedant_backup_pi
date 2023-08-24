@@ -7,7 +7,7 @@ use tracing::{error, trace};
 
 use crate::app_error::AppError;
 use crate::ws_messages::{BackupData, MessageValues, ParsedMessage, Response, StructuredResponse};
-use crate::{env::AppEnv, ws_messages::to_struct};
+use crate::{app_env::AppEnv, ws_messages::to_struct};
 
 use super::WSWriter;
 
