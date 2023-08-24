@@ -71,13 +71,13 @@ impl AppEnv {
     }
 
     fn parse_download_time(map: &EnvHashMap) -> (u8, u8) {
-        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_|String::from("0300"));
+        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_| String::from("0300"));
 
         let hour = value[0..2].parse::<u8>().unwrap_or(3);
         let minute = value[2..].parse::<u8>().unwrap_or(0);
 
         if hour > 24 || minute > 59 {
-            (3,0)
+            (3, 0)
         } else {
             (hour, minute)
         }
@@ -378,7 +378,6 @@ mod tests {
 
         assert_eq!(result, (3, 0));
 
-		
         map.insert("DL_TIME".to_owned(), "0565".to_owned());
 
         // ACTION
@@ -386,14 +385,13 @@ mod tests {
 
         assert_eq!(result, (3, 0));
 
-		map.insert("DL_TIME".to_owned(), "3115".to_owned());
+        map.insert("DL_TIME".to_owned(), "3115".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
 
         assert_eq!(result, (3, 0));
     }
-
 
     #[test]
     fn env_panic_appenv() {
