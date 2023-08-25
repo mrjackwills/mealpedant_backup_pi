@@ -1,4 +1,4 @@
-use base64::{engine, Engine};
+use data_encoding::BASE64;
 use futures_util::lock::Mutex;
 use futures_util::SinkExt;
 use std::sync::Arc;
@@ -27,9 +27,10 @@ impl WSSender {
             "{}/{}",
             self.app_envs.location_backup, backup_data.file_name
         );
+
         Ok(fs::write(
             file_name,
-            engine::general_purpose::STANDARD.decode(backup_data.file_as_b64)?,
+            BASE64.decode(backup_data.file_as_b64.as_bytes())?,
         )
         .await?)
     }

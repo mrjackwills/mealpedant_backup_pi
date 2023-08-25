@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_pi"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
@@ -8,7 +8,7 @@ description = "mealpedant backup pi client"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-base64 = "0.21"
+data-encoding = "2.4"
 dotenvy = "0.15"
 figlet-rs = "0.1"
 futures-util = "0.3"
