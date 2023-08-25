@@ -8,7 +8,7 @@ description = "mealpedant backup pi client"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-base64 = "0.21"
+data-encoding = "2.4"
 dotenvy = "0.15"
 figlet-rs = "0.1"
 futures-util = "0.3"

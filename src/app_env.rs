@@ -392,7 +392,7 @@ mod tests {
 
         assert_eq!(result, (3, 0));
 
-		map.insert("LL_TIME".to_owned(), "3115".to_owned());
+        map.insert("LL_TIME".to_owned(), "3115".to_owned());
 
         // ACTION
         let result = AppEnv::parse_download_time(&map);
