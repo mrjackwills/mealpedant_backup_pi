@@ -43,7 +43,7 @@ impl WSSender {
                 MessageValues::Valid(data) => match data {
                     ParsedMessage::BackupData(backup_data) => {
                         match self.save_backup(backup_data).await {
-                            Ok(_) => trace!("backup saved to disk"),
+                            Ok(()) => trace!("backup saved to disk"),
                             Err(e) => {
                                 error!("Unable to save to disk::{e}");
                             }
@@ -63,7 +63,7 @@ impl WSSender {
             .send(StructuredResponse::data(response))
             .await
         {
-            Ok(_) => trace!("Message sent"),
+            Ok(()) => trace!("Message sent"),
             Err(e) => error!("send_ws_response::SEND-ERROR::{e:?}"),
         }
     }
