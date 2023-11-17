@@ -7,6 +7,20 @@ repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
 description = "mealpedant backup pi client"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unused_async = "warn"
+unwrap_used = "warn"
+expect_used = "warn"
+pedantic = "warn"
+nursery = "warn"
+todo = "warn"
+module_name_repetitions = "allow"
+doc_markdown= "allow"
+similar_names = "allow"
+
 [dependencies]
 data-encoding = "2.4"
 dotenvy = "0.15"
