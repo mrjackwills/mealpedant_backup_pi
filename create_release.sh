@@ -186,7 +186,7 @@ cargo_test() {
 # Check to see if cross is installed - if not then install
 check_cross() {
 	if ! [ -x "$(command -v cross)" ]; then
-		echo -e "${YELLOW}cargo install cross${RESET}"
+		echo -e "${GREEN}cargo install cross${RESET}"
 		cargo install cross
 	fi
 }
@@ -227,7 +227,7 @@ check_typos() {
 	ask_continue
 }
 
-#  Make sure the unused lint isn't used
+# Make sure the unused lint isn't used
 check_allow_unused() {
 	matches_any=$(find . -type d \( -name .git -o -name target \) -prune -o -type f -exec grep -lE '^#!\[allow\(unused\)\]$' {} +)
 	matches_cargo=$(grep "^unused = \"allow\"" ./Cargo.toml)
@@ -313,9 +313,9 @@ release_flow() {
 build_choice() {
 	cmd=(dialog --backtitle "Choose option" --radiolist "choose" 14 80 16)
 	options=(
-		1 "avmv6 linux musl" off
-		2 "aarch64 linux gnu" off
-		5 "all" off
+		1 "armv6 linux musl" off
+		2 "aarch64 linux musl" off
+		3 "all" off
 	)
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 	exitStatus=$?
@@ -336,7 +336,7 @@ build_choice() {
 			cargo_build_aarch64_linux
 			exit
 			;;
-		5)
+		3)
 			cargo_build_all
 			exit
 			;;
