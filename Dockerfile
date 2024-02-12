@@ -4,8 +4,8 @@
 
 FROM alpine:3.19 as SETUP
 
-ARG DOCKER_GUID \
-	DOCKER_UID \
+ARG DOCKER_GUID=1000 \
+	DOCKER_UID=1000 \
 	DOCKER_APP_USER=app_user \
 	DOCKER_APP_GROUP=app_group
 
@@ -34,8 +34,6 @@ FROM scratch
 
 ARG DOCKER_APP_USER=app_user \
 	DOCKER_APP_GROUP=app_group
-
-ENV TZ=${DOCKER_TIME_CONT}/${DOCKER_TIME_CITY}
 
 COPY --from=SETUP /app/ /app
 COPY --from=SETUP /etc/group /etc/passwd /etc/
