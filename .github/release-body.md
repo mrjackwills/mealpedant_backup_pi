@@ -1,13 +1,14 @@
-### 2023-12-31
+### 2024-02-12
 
 ### Chores
-+ file linting, [d6c0d400213b9d34b2deb52f1f545bb37b890f8c]
-+ Rust 1.75.0 linting, [303926c45ae37ee03ead86134b8100ec5b8baebc]
-+ Dockerfile alpine bump to 3.19, [b4590ef90893b8e7c4c8fc69c81caa5424f681c9]
-+ .devcontainer updated, [8f742d97bac7633308e82be9fa788c2ff8453eac]
-+ dependencies updated, [c5ab93bdc316916ee8d104ecdbbe68c12c5fe23c]
++ create_release v0.5.5, [16983bfe087b51508383ff095926e249bb5ae3d4], [d8c85bcb904caf698e2a00751d18cc7a1f89e096], [b52dd55653d79af86a889e8af969272e93b6cda5]
++ Dockerfiles cleaned up, [3dc115ebe255aad4a8651bfd07579d3993ed450e]
++ GitHub workflow updated, [fe87fc225600f6803bb5d9aa9fb7b12fdbc18f64]
++ .devcontainer updated, [83cd39b5609182a94cba2c9f9f78f81af089db3d]
++ .gitattributes updated, [49bd48d55463690272c97ef3506b7281a1acb2b4]
++ dependencies updated, [b93401ceab29630f5dfff0f9aef6c8ce7be01cbc]
 
-### Features
-+ run.sh v0.1.0, [77d01dda470892322d7ebb3e99d93df9a5fcf307]
+### Refactors
++ Dockerfiles simplified, [0a6fa22867e7cb926b4cae1a21f05b862fd43797]
 
 see <a href='https://github.com/mrjackwills/mealpedant_backup_pi/blob/main/CHANGELOG.md'>CHANGELOG.md</a> for more details

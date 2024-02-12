@@ -1,15 +1,10 @@
 version: "3.8"
 services:
   mealpedant_backup_pi:
-    image: mealpedant_backup_pi:0.1.9
+    image: mealpedant_backup_pi:0.1.10
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - DOCKER_UID=${DOCKER_UID}
-        - DOCKER_GUID=${DOCKER_GUID}
-        - DOCKER_TIME_CONT=${DOCKER_TIME_CONT}
-        - DOCKER_TIME_CITY=${DOCKER_TIME_CITY}
     container_name: mealpedant_backup_pi
     volumes:
       - $HOME/mealpedant_backup/backups:/backups
