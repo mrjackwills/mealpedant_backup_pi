@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# rust create_release
-# v0.3.1
+# rust create_release v0.5.5
 
-PACKAGE_NAME='mealpedant_backup_pi'
 STAR_LINE='****************************************'
 CWD=$(pwd)
 
@@ -19,8 +17,9 @@ error_close() {
 	exit 1
 }
 
-if [ -z "$PACKAGE_NAME" ]; then
-	error_close "No package name"
+# Check that dialog is installed
+if ! [ -x "$(command -v dialog)" ]; then
+	error_close "dialog is not installed"
 fi
 
 # $1 string - question to ask
@@ -34,21 +33,34 @@ user_input() {
 	echo "$data"
 }
 
+# ask continue, or quit
+ask_continue() {
+	ask_yn "continue"
+	if [[ ! "$(user_input)" =~ ^y$ ]]; then
+		exit
+	fi
+}
+
+# semver major update
 update_major() {
 	local bumped_major
 	bumped_major=$((MAJOR + 1))
 	echo "${bumped_major}.0.0"
 }
 
+# semver minor update
 update_minor() {
 	local bumped_minor
 	bumped_minor=$((MINOR + 1))
+	MINOR=bumped_minor
 	echo "${MAJOR}.${bumped_minor}.0"
 }
 
+# semver patch update
 update_patch() {
 	local bumped_patch
 	bumped_patch=$((PATCH + 1))
+	PATCH=bumped_patch
 	echo "${MAJOR}.${MINOR}.${bumped_patch}"
 }
 
@@ -165,24 +177,40 @@ check_tag() {
 	done
 }
 
-# ask continue, or quit
-ask_continue() {
-	ask_yn "continue"
-	if [[ ! "$(user_input)" =~ ^y$ ]]; then
-		exit
-	fi
-}
-
-# Build target as github action would
-cross_build() {
-	echo -e "\n${GREEN}cross build --target arm-unknown-linux-musleabihf --release${RESET}"
-	cross build --target arm-unknown-linux-musleabihf --release
-	ask_continue
-}
-
 # run all tests
 cargo_test() {
 	cargo test -- --test-threads=1
+	ask_continue
+}
+
+# Check to see if cross is installed - if not then install
+check_cross() {
+	if ! [ -x "$(command -v cross)" ]; then
+		echo -e "${YELLOW}cargo install cross${RESET}"
+		cargo install cross
+	fi
+}
+
+# Build for linux arm64 musl
+cargo_build_aarch64_linux() {
+	check_cross
+	echo -e "${YELLOW}cross build --target aarch64-unknown-linux-musl --release${RESET}"
+	cross build --target aarch64-unknown-linux-musl --release
+}
+
+#  Build for linux armv6 musl
+cargo_build_armv6_linux() {
+	check_cross
+	echo -e "${YELLOW}cross build --target arm-unknown-linux-musleabihf --release${RESET}"
+	cross build --target arm-unknown-linux-musleabihf --release
+}
+
+# Build all releases that GitHub workflow would
+# This will download GB's of docker images
+cargo_build_all() {
+	cargo_build_aarch64_linux
+	ask_continue
+	cargo_build_armv6_linux
 	ask_continue
 }
 
@@ -192,22 +220,37 @@ release_continue() {
 	ask_continue
 }
 
+# Check repository for typos
 check_typos() {
-	echo -e "\n${YELLOW}checking for typos${RESET}"
+	echo -e "\n${PURPLE}check typos${RESET}"
 	typos
 	ask_continue
 }
 
+#  Make sure the unused lint isn't used
+check_allow_unused() {
+	matches_any=$(find . -type d \( -name .git -o -name target \) -prune -o -type f -exec grep -lE '^#!\[allow\(unused\)\]$' {} +)
+	matches_cargo=$(grep "^unused = \"allow\"" ./Cargo.toml)
+	if [ -n "$matches_any" ]; then
+		echo "\"#[allow(unused)]\" in ${matches_any}"
+		ask_continue
+	elif [ -n "$matches_cargo" ]; then
+		echo "\"unused = \"allow\"\" in Cargo.toml"
+		ask_continue
+	fi
+}
+
+
 # Full flow to create a new release
 release_flow() {
-
+	check_allow_unused
 	check_typos
 
 	check_git
 	get_git_remote_url
 
 	cargo_test
-	cross_build
+	cross_build_all
 
 	cd "${CWD}" || error_close "Can't find ${CWD}"
 	check_tag
@@ -228,7 +271,7 @@ release_flow() {
 	echo "cargo fmt"
 	cargo fmt
 
-	echo -e "\n${PURPLE}cargo check${RESET}"
+	echo -e "\n${PURPLE}cargo check${RESET}\n"
 	cargo check
 
 	release_continue "git add ."
@@ -238,9 +281,16 @@ release_flow() {
 	git commit -m "chore: release ${NEW_TAG_WITH_V}"
 
 	release_continue "git checkout main"
-	echo -e "git merge --no-ff \"${RELEASE_BRANCH}\" -m \"chore: merge ${RELEASE_BRANCH} into main\""
 	git checkout main
+
+	echo -e "${PURPLE}git pull origin main${RESET}"
+	git pull origin main
+
+	echo -e "${PURPLE}git merge --no-ff \"${RELEASE_BRANCH}\" -m \"chore: merge ${RELEASE_BRANCH} into main\"${RESET}"
 	git merge --no-ff "$RELEASE_BRANCH" -m "chore: merge ${RELEASE_BRANCH} into main"
+
+	echo -e "\n${PURPLE}cargo check${RESET}\n"
+	cargo check
 
 	release_continue "git tag -am \"${RELEASE_BRANCH}\" \"$NEW_TAG_WITH_V\""
 	git tag -am "${RELEASE_BRANCH}" "$NEW_TAG_WITH_V"
@@ -252,7 +302,7 @@ release_flow() {
 	git checkout dev
 
 	release_continue "git merge --no-ff main -m \"chore: merge main into dev\""
-	git merge --no-ff main -m 'chore: merge main into dev'
+	git merge --no-ff main -m "chore: merge main into dev"
 
 	release_continue "git push origin dev"
 	git push origin dev
@@ -261,12 +311,12 @@ release_flow() {
 	git branch -d "$RELEASE_BRANCH"
 }
 
-main() {
-	cmd=(dialog --backtitle "Choose build option" --radiolist "choose" 14 80 16)
+build_choice() {
+	cmd=(dialog --backtitle "Choose option" --radiolist "choose" 14 80 16)
 	options=(
-		1 "build" off
-		2 "test" off
-		3 "release" off
+		1 "avmv6 linux musl" off
+		2 "aarch64 linux gnu" off
+		5 "all" off
 	)
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 	exitStatus=$?
@@ -280,17 +330,51 @@ main() {
 			exit
 			;;
 		1)
-			cross_build
-			main
-			break
+			cargo_build_armv6_linux
+			exit
 			;;
 		2)
+			cargo_build_aarch64_linux
+			exit
+			;;
+		5)
+			cargo_build_all
+			exit
+			;;
+		esac
+	done
+}
+
+main() {
+	cmd=(dialog --backtitle "Choose option" --radiolist "choose" 14 80 16)
+	options=(
+		1 "test" off
+		2 "release" off
+		3 "build" off
+	)
+	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+	exitStatus=$?
+	clear
+	if [ $exitStatus -ne 0 ]; then
+		exit
+	fi
+	for choice in $choices; do
+		case $choice in
+		0)
+			exit
+			;;
+		1)
 			cargo_test
 			main
 			break
 			;;
-		3)
+		2)
 			release_flow
+			break
+			;;
+		3)
+			build_choice
+			main
 			break
 			;;
 		esac
