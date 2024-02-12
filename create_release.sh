@@ -240,7 +240,6 @@ check_allow_unused() {
 	fi
 }
 
-
 # Full flow to create a new release
 release_flow() {
 	check_allow_unused
