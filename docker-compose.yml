@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: mealpedant_backup_pi
     volumes:
-      - $HOME/mealpedant_backup/backups:/backups
-      - $HOME/mealpedant_backup/.env:/app_env/.env:ro
+      - $HOME/mealpedant_backup.d/backups:/backups
+      - $HOME/mealpedant_backup.d/.env:/app_env/.env:ro
     cap_drop:
       - all
     security_opt:
