@@ -132,7 +132,7 @@ update_version_number_in_files() {
 	sed -i -r -E "s=image: (\w+):[0-9]+\.[0-9]+\.[0-9]+=image: \1:${MAJOR}.${MINOR}.${PATCH}=g" ./docker-compose.yml
 
 	# Update version number on api dockerfile, to download latest release from github
-	sed -i -r -E "s=download/v[0-9]+.[0-9]+.[0-9]+=download/v${MAJOR}.${MINOR}.${PATCH}=g" ./Dockerfile
+	sed -i -r -E "s/^ARG MEALPEDANT_BACKUP_PI_VERSION=v[0-9]+.[0-9]+.[0-9]+/ARG MEALPEDANT_BACKUP_PI_VERSION=v${MAJOR}.${MINOR}.${PATCH}/" ./Dockerfile
 }
 
 # Work out the current version, based on git tags
