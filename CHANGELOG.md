@@ -1,11 +1,14 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.12'>v0.1.12</a>
+### 2024-05-07
+
 ### Chores
-+ dependencies updated, [3cf342f5d5ce1ef9b07d65dd0ea47b5b87419683], [c1e459f3325d32017834e9958fcb520edcb7b619]
++ dependencies updated, [3cf342f5](https://github.com/mrjackwills/mealpedant_backup_pi/commit/3cf342f5d5ce1ef9b07d65dd0ea47b5b87419683), [c1e459f3](https://github.com/mrjackwills/mealpedant_backup_pi/commit/c1e459f3325d32017834e9958fcb520edcb7b619)
 
 ### Features
-+ use .d directory, [a9f93494a9748f694aa47a3196c1038395b47e14]
++ use .d directory, [a9f93494](https://github.com/mrjackwills/mealpedant_backup_pi/commit/a9f93494a9748f694aa47a3196c1038395b47e14)
 
 ### Fixes
-+ set version into ARG in Dockerfile, [a37b0c75fd382215af9eefb26fc7496ce3cf26be]
++ set version into ARG in Dockerfile, [a37b0c75](https://github.com/mrjackwills/mealpedant_backup_pi/commit/a37b0c75fd382215af9eefb26fc7496ce3cf26be)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.11'>v0.1.11</a>
 ### 2024-04-01
