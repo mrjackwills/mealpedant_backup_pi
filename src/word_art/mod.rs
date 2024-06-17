@@ -82,7 +82,6 @@ mod tests {
     use crate::app_env::EnvTimeZone;
 
     use super::*;
-    use std::time::SystemTime;
 
     #[test]
     fn word_art_new_ok() -> Result<(), String> {
@@ -91,7 +90,6 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
-            start_time: SystemTime::now(),
             timezone: EnvTimeZone::new(&na),
             ws_address: na.clone(),
             ws_apikey: na.clone(),
@@ -110,7 +108,6 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
-            start_time: SystemTime::now(),
             timezone: EnvTimeZone::new(&na),
             ws_address: na.clone(),
             ws_apikey: na.clone(),
@@ -130,7 +127,6 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::DEBUG,
-            start_time: SystemTime::now(),
             timezone: EnvTimeZone::new(na.clone()),
             ws_address: na.clone(),
             ws_apikey: na.clone(),
@@ -150,7 +146,6 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::INFO,
-            start_time: SystemTime::now(),
             timezone: EnvTimeZone::new(na.clone()),
             ws_address: na.clone(),
             ws_apikey: na.clone(),

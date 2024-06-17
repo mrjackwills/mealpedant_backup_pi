@@ -1,4 +1,4 @@
-use std::{collections::HashMap, env, fs, time::SystemTime};
+use std::{collections::HashMap, env, fs};
 use time::UtcOffset;
 use time_tz::{timezones, Offset, TimeZone};
 
@@ -34,7 +34,6 @@ pub struct AppEnv {
     pub download_time: (u8, u8),
     pub location_backup: String,
     pub log_level: tracing::Level,
-    pub start_time: SystemTime,
     pub timezone: EnvTimeZone,
     pub ws_address: String,
     pub ws_apikey: String,
@@ -106,7 +105,6 @@ impl AppEnv {
                 "LOCATION_BACKUP",
                 &env_map,
             )?)?,
-            start_time: SystemTime::now(),
             timezone: Self::parse_timezone(&env_map),
             log_level: Self::parse_log(&env_map),
             ws_address: Self::parse_string("WS_ADDRESS", &env_map)?,

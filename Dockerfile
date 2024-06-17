@@ -2,7 +2,7 @@
 # SETUP #
 #########
 
-FROM alpine:3.19 as SETUP
+FROM alpine:3.20 as SETUP
 
 ARG DOCKER_GUID=1000 \
 	DOCKER_UID=1000 \
@@ -13,16 +13,15 @@ ENV VIRT=".build_packages"
 
 WORKDIR /app
 
-
 RUN addgroup -g ${DOCKER_GUID} -S ${DOCKER_APP_GROUP} \
-&& adduser -u ${DOCKER_UID} -S -G ${DOCKER_APP_GROUP} ${DOCKER_APP_USER} \
-&& apk --no-cache add --virtual ${VIRT} ca-certificates \
-&& apk del ${VIRT} \
-&& mkdir /backups \
-&& chown ${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups
+	&& adduser -u ${DOCKER_UID} -S -G ${DOCKER_APP_GROUP} ${DOCKER_APP_USER} \
+	&& apk --no-cache add --virtual ${VIRT} ca-certificates \
+	&& apk del ${VIRT} \
+	&& mkdir /backups \
+	&& chown ${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups
 
 # This gets automatically updated via create_release.sh
-ARG MEALPEDANT_BACKUP_PI_VERSION=v0.1.12
+ARG MEALPEDANT_BACKUP_PI_VERSION=v0.1.13
 
 RUN wget "https://github.com/mrjackwills/mealpedant_backup_pi/releases/download/${MEALPEDANT_BACKUP_PI_VERSION}/mealpedant_backup_pi_linux_armv6.tar.gz" \
 	&& tar xzvf mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi \
