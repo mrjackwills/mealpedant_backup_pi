@@ -2,7 +2,7 @@
 # SETUP #
 #########
 
-FROM alpine:3.20 as SETUP
+FROM alpine:3.20 AS setup
 
 ARG DOCKER_GUID=1000 \
 	DOCKER_UID=1000 \
@@ -37,11 +37,11 @@ FROM scratch
 ARG DOCKER_APP_USER=app_user \
 	DOCKER_APP_GROUP=app_group
 
-COPY --from=SETUP /app/ /app
-COPY --from=SETUP /etc/group /etc/passwd /etc/
-COPY --from=SETUP /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=setup /app/ /app
+COPY --from=setup /etc/group /etc/passwd /etc/
+COPY --from=setup /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-COPY --from=SETUP --chown=${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups /backups
+COPY --from=setup --chown=${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups /backups
 
 USER ${DOCKER_APP_USER}
 
