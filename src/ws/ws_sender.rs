@@ -36,7 +36,7 @@ impl WSSender {
     }
 
     /// Handle text message, in this program they will all be json text
-    pub async fn on_text(&mut self, message: String) {
+    pub async fn on_text(&self, message: String) {
         if let Some(data) = to_struct(&message) {
             match data {
                 MessageValues::Invalid(error) => error!("{error:?}"),
@@ -55,7 +55,7 @@ impl WSSender {
     }
 
     /// Send a message to the socket
-    pub async fn send_backup_request(&mut self, response: Response) {
+    pub async fn send_backup_request(&self, response: Response) {
         match self
             .writer
             .lock()
@@ -69,7 +69,7 @@ impl WSSender {
     }
 
     /// close connection, uses a 2 second timeout
-    pub async fn close(&mut self) {
+    pub async fn close(&self) {
         tokio::time::timeout(
             std::time::Duration::from_secs(2),
             self.writer.lock().await.close(),
