@@ -1,4 +1,4 @@
-#![allow(unused, clippy::too_many_lines)]
+#![expect(unused, clippy::too_many_lines)]
 
 pub enum Color {
     Blue,
@@ -22,7 +22,7 @@ impl Color {
     }
 }
 
-#[allow(unused)]
+#[expect(unused)]
 pub enum FontName {
     Block,
     Colossal,

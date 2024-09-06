@@ -56,7 +56,7 @@ pub fn to_struct(input: &str) -> Option<MessageValues> {
 /// message_incoming
 ///
 /// cargo watch -q -c -w src/ -x 'test message_incoming -- --test-threads=1 --nocapture'
-#[allow(clippy::unwrap_used, clippy::pedantic)]
+#[expect(clippy::unwrap_used, clippy::pedantic)]
 #[cfg(test)]
 mod tests {
     use super::*;
