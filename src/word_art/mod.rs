@@ -76,7 +76,7 @@ impl Intro {
 /// WordArt tests
 ///
 /// cargo watch -q -c -w src/ -x 'test word_art -- --nocapture'
-#[allow(clippy::unwrap_used, clippy::pedantic)]
+#[expect(clippy::pedantic)]
 #[cfg(test)]
 mod tests {
     use crate::app_env::EnvTimeZone;

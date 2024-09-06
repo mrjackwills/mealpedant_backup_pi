@@ -18,7 +18,7 @@ pub struct WSSender {
 }
 
 impl WSSender {
-    pub fn new(app_envs: AppEnv, writer: Arc<Mutex<WSWriter>>) -> Self {
+    pub const fn new(app_envs: AppEnv, writer: Arc<Mutex<WSWriter>>) -> Self {
         Self { app_envs, writer }
     }
 

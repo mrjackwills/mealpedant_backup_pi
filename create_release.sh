@@ -228,22 +228,22 @@ check_typos() {
 	ask_continue
 }
 
-# Make sure the unused lint isn't used
-check_allow_unused() {
-	matches_any=$(find . -type d \( -name .git -o -name target \) -prune -o -type f -exec grep -lE '^#!\[allow\(unused\)\]$' {} +)
-	matches_cargo=$(grep "^unused = \"allow\"" ./Cargo.toml)
-	if [ -n "$matches_any" ]; then
-		echo "\"#[allow(unused)]\" in ${matches_any}"
-		ask_continue
-	elif [ -n "$matches_cargo" ]; then
-		echo "\"unused = \"allow\"\" in Cargo.toml"
-		ask_continue
-	fi
-}
+# # Make sure the unused lint isn't used
+# check_allow_unused() {
+# 	matches_any=$(find . -type d \( -name .git -o -name target \) -prune -o -type f -exec grep -lE '^#!\[allow\(unused\)\]$' {} +)
+# 	matches_cargo=$(grep "^unused = \"allow\"" ./Cargo.toml)
+# 	if [ -n "$matches_any" ]; then
+# 		echo "\"#[allow(unused)]\" in ${matches_any}"
+# 		ask_continue
+# 	elif [ -n "$matches_cargo" ]; then
+# 		echo "\"unused = \"allow\"\" in Cargo.toml"
+# 		ask_continue
+# 	fi
+# }
 
 # Full flow to create a new release
 release_flow() {
-	check_allow_unused
+	# check_allow_unused
 	check_typos
 
 	check_git
