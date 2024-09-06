@@ -14,7 +14,7 @@
 	// Set *default* container specific settings.json values on container create.
 
 	"mounts": [
-		"source=/run/shm,target=/dev/shm,type=bind",
+		"source=/ramdrive,target=/ramdrive,type=bind",
 		"source=/etc/timezone,target=/etc/timezone,type=bind,readonly"
 	],
 
@@ -51,11 +51,7 @@
 	"remoteUser": "vscode",
 
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {
-			"version": "latest",
-			"moby": true,
-			"dockerDashComposeVersion":"v2"
-		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2":{},
 		"ghcr.io/devcontainers/features/git:1": {
 				"version":"os-provided"
 			}
