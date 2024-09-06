@@ -49,9 +49,10 @@ impl AppEnv {
 
     /// Check a given file actually exists on the file system
     fn check_file_exists(filename: String) -> Result<String, AppError> {
-        match fs::metadata(&filename) {
-            Ok(_) => Ok(filename),
-            Err(_) => Err(AppError::FileNotFound(filename)),
+        if fs::exists(&filename).unwrap_or_default() {
+            Ok(filename)
+        } else {
+            Err(AppError::FileNotFound(filename))
         }
     }
 
@@ -115,9 +116,9 @@ impl AppEnv {
     }
 
     pub fn get() -> Self {
-        let env_path = if std::fs::metadata(DOCKER_ENV).is_ok() {
+        let env_path = if std::fs::exists(DOCKER_ENV).unwrap_or_default() {
             DOCKER_ENV
-        } else if std::fs::metadata(LOCAL_ENV).is_ok() {
+        } else if std::fs::exists(LOCAL_ENV).unwrap_or_default() {
             LOCAL_ENV
         } else {
             println!("\n\x1b[31munable to load env file\x1b[0m\n");
