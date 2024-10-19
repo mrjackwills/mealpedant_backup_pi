@@ -1,5 +1,5 @@
 ### Chores
-+ dependenceis updated, [e63a83fe3e05c96bed4038a84e244b3610ce3d39]
++ dependencies updated, [e63a83fe3e05c96bed4038a84e244b3610ce3d39]
 + .devcontainer updated, [9f7117abaa5d3018cf9ce7467674d550cc49ad51]
 + run.sh & create_release.sh updated, [dde3c15e06a30983b2de981316decb47fdd35e98]
 
