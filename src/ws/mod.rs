@@ -11,7 +11,6 @@ use futures_util::{
 use std::sync::Arc;
 use tokio::{net::TcpStream, sync::broadcast::Sender, task::JoinHandle};
 use tokio_tungstenite::{self, tungstenite::Message, MaybeTlsStream, WebSocketStream};
-use tracing::{error, info};
 
 mod ws_sender;
 
@@ -66,7 +65,7 @@ async fn incoming_ws_message(mut reader: WSReader, ws_sender: WSSender) {
             _ => (),
         };
     }
-    info!("incoming_ws_message done");
+    tracing::info!("incoming_ws_message done");
 }
 
 /// Send a ws message to request a backup file, is executed by a cron type job on abother thread
@@ -84,12 +83,12 @@ fn incoming_internal_message(sx: &Sender<InternalMessage>, ws_sender: &WSSender)
 pub async fn open_connection(app_envs: AppEnv, sx: Sender<InternalMessage>) {
     let mut connection_details = ConnectionDetails::new();
     loop {
-        info!("in connection loop, awaiting delay then try to connect");
+        tracing::info!("in connection loop, awaiting delay then try to connect");
         connection_details.reconnect_delay().await;
 
         match ws_upgrade(&app_envs).await {
             Ok(socket) => {
-                info!("connected in ws_upgrade match");
+                tracing::info!("connected in ws_upgrade match");
                 connection_details.valid_connect();
 
                 let (writer, reader) = socket.split();
@@ -102,10 +101,10 @@ pub async fn open_connection(app_envs: AppEnv, sx: Sender<InternalMessage>) {
                 incoming_ws_message(reader, ws_sender).await;
 
                 internal_thread.abort();
-                info!("aborted spawns, incoming_ws_message done, reconnect next");
+                tracing::info!("aborted spawns, incoming_ws_message done, reconnect next");
             }
             Err(e) => {
-                error!("connect::{e}");
+                tracing::error!("connect::{e}");
                 connection_details.fail_connect();
             }
         }
