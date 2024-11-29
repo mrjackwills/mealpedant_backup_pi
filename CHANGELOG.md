@@ -1,8 +1,11 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.17'>v0.1.17</a>
+### 2024-11-29
+
 ### Chores
-+ dependencies updated, [9eff5b1c001299f6deef083ac7cc8bd38a61c1af]
++ dependencies updated, [9eff5b1c](https://github.com/mrjackwills/mealpedant_backup_pi/commit/9eff5b1c001299f6deef083ac7cc8bd38a61c1af)
 
 ### Features
-+ spawn open_connection, [aaf70a7c25e46e5a3f243aad9bbcfaa0cff0713f]
++ spawn open_connection, [aaf70a7c](https://github.com/mrjackwills/mealpedant_backup_pi/commit/aaf70a7c25e46e5a3f243aad9bbcfaa0cff0713f)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.16'>v0.1.16</a>
 ### 2024-10-19
