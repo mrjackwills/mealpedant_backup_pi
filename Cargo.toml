@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_pi"
-version = "0.1.16"
+version = "0.1.17"
 edition = "2021"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
@@ -35,10 +35,10 @@ reqwest = { version = "0.12", default-features = false, features = [
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 simple-signal = "1.1"
-thiserror = "1.0"
+thiserror = "2.0"
 time = { version = "0.3", features = ["local-offset", "macros"] }
 time-tz = "2.0"
-tokio = { version = "1.40", features = ["full"] }
+tokio = { version = "1.41", features = ["full"] }
 tokio-tungstenite = { version = "0.24", features = ["rustls-tls-native-roots"] }
 tracing = "0.1"
 tracing-appender = "0.2"

@@ -24,5 +24,5 @@ async fn main() {
     Intro::new(&app_envs).show();
     let (sx, _keep_alive) = broadcast::channel(128);
     Croner::init(sx.clone(), &app_envs);
-    open_connection(app_envs, sx).await;
+    tokio::spawn(open_connection(app_envs, sx)).await.ok();
 }
