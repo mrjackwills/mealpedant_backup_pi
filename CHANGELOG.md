@@ -1,3 +1,7 @@
+### Chores
++ dependencies updated, [6c9ad82b5f87248da065a3c60237700c6fd78b31]
++ Rust 1.84 linting, [2dd197c02b594debf8128f2f31148c0f071fe770]
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.17'>v0.1.17</a>
 ### 2024-11-29
 
