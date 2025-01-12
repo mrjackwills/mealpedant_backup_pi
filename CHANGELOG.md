@@ -1,6 +1,9 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.18'>v0.1.18</a>
+### 2025-01-12
+
 ### Chores
-+ dependencies updated, [6c9ad82b5f87248da065a3c60237700c6fd78b31]
-+ Rust 1.84 linting, [2dd197c02b594debf8128f2f31148c0f071fe770]
++ dependencies updated, [6c9ad82b](https://github.com/mrjackwills/mealpedant_backup_pi/commit/6c9ad82b5f87248da065a3c60237700c6fd78b31)
++ Rust 1.84 linting, [2dd197c0](https://github.com/mrjackwills/mealpedant_backup_pi/commit/2dd197c02b594debf8128f2f31148c0f071fe770)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.17'>v0.1.17</a>
 ### 2024-11-29
