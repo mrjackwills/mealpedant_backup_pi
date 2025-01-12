@@ -44,7 +44,7 @@ pub struct AppEnv {
 impl AppEnv {
     /// Parse "true" or "false" to bool, else false
     fn parse_boolean(key: &str, map: &EnvHashMap) -> bool {
-        map.get(key).map_or(false, |value| value == "true")
+        map.get(key).is_some_and(|value| value == "true")
     }
 
     /// Check a given file actually exists on the file system
