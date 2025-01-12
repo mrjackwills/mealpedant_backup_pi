@@ -54,7 +54,7 @@ async fn incoming_ws_message(mut reader: WSReader, ws_sender: WSSender) {
             Message::Text(message) => {
                 let ws_sender = ws_sender.clone();
                 tokio::spawn(async move {
-                    ws_sender.on_text(message).await;
+                    ws_sender.on_text(message.to_string()).await;
                 });
             }
             Message::Ping(_) => auto_close.on_ping(&ws_sender),
