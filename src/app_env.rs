@@ -50,16 +50,25 @@ impl AppEnv {
     }
 
     fn parse_download_time(map: &EnvHashMap) -> (i8, i8) {
-        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_| String::from("0300"));
+        if let Ok(value) = Self::parse_string("DL_TIME", map) {
+            let hour = value[0..2]
+                .parse::<u8>()
+                .ok()
+                .and_then(|v| i8::try_from(v).ok());
 
-        let hour = value[0..2].parse::<i8>().unwrap_or(3);
-        let minute = value[2..].parse::<i8>().unwrap_or(0);
+            let minute = value[2..]
+                .parse::<u8>()
+                .ok()
+                .and_then(|v| i8::try_from(v).ok());
 
-        if hour > 24 || minute > 59 {
-            (3, 0)
-        } else {
-            (hour, minute)
+            // todo if let chain
+            if let (Some(hour), Some(minute)) = (hour, minute) {
+                if hour < 24 && minute < 59 {
+                    return (hour, minute);
+                }
+            }
         }
+        (3, 0)
     }
 
     /// Parse debug and/or trace into tracing level
