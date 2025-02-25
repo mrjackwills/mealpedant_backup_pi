@@ -2,7 +2,7 @@
 # SETUP #
 #########
 
-FROM alpine:3.20 AS setup
+FROM alpine:3 AS setup
 
 ARG DOCKER_GUID=1000 \
 	DOCKER_UID=1000 \
