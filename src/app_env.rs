@@ -1,6 +1,6 @@
 use std::{collections::HashMap, env, fs};
-use time::UtcOffset;
-use time_tz::{timezones, Offset, TimeZone};
+
+use jiff::tz::TimeZone;
 
 use crate::app_error::AppError;
 
@@ -9,32 +9,12 @@ type EnvHashMap = HashMap<String, String>;
 const LOCAL_ENV: &str = ".env";
 const DOCKER_ENV: &str = "/app_env/.env";
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub struct EnvTimeZone(String);
-
-impl EnvTimeZone {
-    pub fn new(x: impl Into<String>) -> Self {
-        let zone = x.into();
-        if timezones::get_by_name(&zone).is_some() {
-            Self(zone)
-        } else {
-            Self("Etc/UTC".into())
-        }
-    }
-
-    pub fn get_offset(&self) -> UtcOffset {
-        timezones::get_by_name(&self.0).map_or(UtcOffset::UTC, |tz| {
-            tz.get_offset_utc(&time::OffsetDateTime::now_utc()).to_utc()
-        })
-    }
-}
-
 #[derive(Debug, Clone)]
 pub struct AppEnv {
-    pub download_time: (u8, u8),
+    pub download_time: (i8, i8),
     pub location_backup: String,
     pub log_level: tracing::Level,
-    pub timezone: EnvTimeZone,
+    pub timezone: TimeZone,
     pub ws_address: String,
     pub ws_apikey: String,
     pub ws_password: String,
@@ -63,24 +43,32 @@ impl AppEnv {
             })
     }
     /// Check that a given timezone is valid, else return UTC
-    fn parse_timezone(map: &EnvHashMap) -> EnvTimeZone {
-        EnvTimeZone::new(
-            map.get("TIMEZONE")
-                .map_or_else(String::new, std::borrow::ToOwned::to_owned),
-        )
+    fn parse_timezone(map: &EnvHashMap) -> TimeZone {
+        map.get("TIMEZONE").map_or(TimeZone::UTC, |s| {
+            jiff::tz::TimeZone::get(s).unwrap_or(TimeZone::UTC)
+        })
     }
 
-    fn parse_download_time(map: &EnvHashMap) -> (u8, u8) {
-        let value = Self::parse_string("DL_TIME", map).unwrap_or_else(|_| String::from("0300"));
+    fn parse_download_time(map: &EnvHashMap) -> (i8, i8) {
+        if let Ok(value) = Self::parse_string("DL_TIME", map) {
+            let hour = value[0..2]
+                .parse::<u8>()
+                .ok()
+                .and_then(|v| i8::try_from(v).ok());
 
-        let hour = value[0..2].parse::<u8>().unwrap_or(3);
-        let minute = value[2..].parse::<u8>().unwrap_or(0);
+            let minute = value[2..]
+                .parse::<u8>()
+                .ok()
+                .and_then(|v| i8::try_from(v).ok());
 
-        if hour > 24 || minute > 59 {
-            (3, 0)
-        } else {
-            (hour, minute)
+            // todo if let chain
+            if let (Some(hour), Some(minute)) = (hour, minute) {
+                if hour < 24 && minute < 59 {
+                    return (hour, minute);
+                }
+            }
         }
+        (3, 0)
     }
 
     /// Parse debug and/or trace into tracing level
@@ -311,7 +299,7 @@ mod tests {
         let result = AppEnv::parse_timezone(&map);
 
         // CHECK
-        assert_eq!(result.0, "America/New_York");
+        assert_eq!(result.iana_name(), Some("America/New_York"));
 
         let mut map = HashMap::new();
         map.insert("TIMEZONE".to_owned(), "Europe/Berlin".to_owned());
@@ -320,7 +308,7 @@ mod tests {
         let result = AppEnv::parse_timezone(&map);
 
         // CHECK
-        assert_eq!(result.0, "Europe/Berlin");
+        assert_eq!(result.iana_name(), Some("Europe/Berlin"));
 
         // FIXTURES
         let map = HashMap::new();
@@ -329,19 +317,19 @@ mod tests {
         let result = AppEnv::parse_timezone(&map);
 
         // CHECK
-        assert_eq!(result.0, "Etc/UTC");
+        assert_eq!(result.iana_name(), Some("UTC"));
     }
 
     #[test]
     fn env_parse_timezone_err() {
         // FIXTURES
         let mut map = HashMap::new();
-        map.insert("TIMEZONE".to_owned(), "america/New_York".to_owned());
+        map.insert("TIMEZONE".to_owned(), "america/New__York".to_owned());
 
         // ACTION
         let result = AppEnv::parse_timezone(&map);
         // CHECK
-        assert_eq!(result.0, "Etc/UTC");
+        assert_eq!(result.iana_name(), Some("UTC"));
 
         // No timezone present
         // FIXTURES
@@ -349,9 +337,8 @@ mod tests {
         let result = AppEnv::parse_timezone(&map);
 
         // CHECK
-        assert_eq!(result.0, "Etc/UTC");
+        assert_eq!(result.iana_name(), Some("UTC"));
     }
-
     #[test]
     fn env_parse_dl_ok() {
         // FIXTURES

@@ -10,8 +10,6 @@ pub enum AppError {
     FileNotFound(String),
     #[error("missing env: '{0}'")]
     MissingEnv(String),
-    #[error("Time offset error")]
-    Offset(#[from] time::error::ComponentRange),
     #[error("Reqwest Error")]
     Reqwest(#[from] reqwest::Error),
     #[error("WS Connect")]

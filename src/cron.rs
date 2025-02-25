@@ -1,10 +1,7 @@
-use time::OffsetDateTime;
+use jiff::tz::TimeZone;
 use tokio::sync::broadcast::Sender;
 
-use crate::{
-    app_env::{AppEnv, EnvTimeZone},
-    ws::InternalMessage,
-};
+use crate::{app_env::AppEnv, ws::InternalMessage};
 
 /// A basic cron like structure, in order to request a new backup at a specific
 pub struct Croner;
@@ -19,14 +16,10 @@ impl Croner {
     }
 
     /// loop every 60 second,check if its $DL_TIME, and send internal file request message, which, if connected to ws, will send a ws message
-    async fn init_loop(
-        &self,
-        sx: Sender<InternalMessage>,
-        timezone: EnvTimeZone,
-        dl_time: (u8, u8),
-    ) {
+    async fn init_loop(&self, sx: Sender<InternalMessage>, timezone: TimeZone, dl_time: (i8, i8)) {
         loop {
-            let now = OffsetDateTime::now_utc().to_offset(timezone.get_offset());
+            let now = jiff::Timestamp::now().to_zoned(timezone.clone()).datetime();
+            // let now = OffsetDateTime::now_utc().to_offset(timezone.get_offset());
             if now.hour() == dl_time.0 && now.minute() == dl_time.1 {
                 tracing::info!("sending backup request to via internal ThreadChannel");
                 sx.send(InternalMessage::RequestBackup).ok();

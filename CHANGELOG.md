@@ -1,3 +1,18 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.0'>v0.2.0</a>
+### 2025-02-25
+
+### Chores
++ create_release.sh updated, [4517b7bd](https://github.com/mrjackwills/mealpedant_backup_pi/commit/4517b7bd1d447463e589e24e74a68868f968c1dd)
++ Dockerfile alpine bump, [90c9fbc3](https://github.com/mrjackwills/mealpedant_backup_pi/commit/90c9fbc38f19d1733d82406858c1c2c21f0d2c44)
++ .devcontainer updated, [156c1173](https://github.com/mrjackwills/mealpedant_backup_pi/commit/156c1173d79c80598001bccb5a303063537d2269)
+
+### Features
++ use jiff for time methods, [dd8274cf](https://github.com/mrjackwills/mealpedant_backup_pi/commit/dd8274cf36aa347dc839c86d2c7daba83150ea10)
++ Rust edition 2024, [d536f600](https://github.com/mrjackwills/mealpedant_backup_pi/commit/d536f6005b84d43cbb4a791bea670368722acfa6)
+
+### Refactors
++ parse dl time, [cc8c556e](https://github.com/mrjackwills/mealpedant_backup_pi/commit/cc8c556eeafc4fe7f86375578fcc13ecdb5e3610)
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.18'>v0.1.18</a>
 ### 2025-01-12
 
