@@ -79,7 +79,8 @@ impl Intro {
 #[expect(clippy::pedantic)]
 #[cfg(test)]
 mod tests {
-    use crate::app_env::EnvTimeZone;
+
+    use jiff::tz::TimeZone;
 
     use super::*;
 
@@ -90,7 +91,7 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
-            timezone: EnvTimeZone::new(&na),
+            timezone: TimeZone::UTC,
             ws_address: na.clone(),
             ws_apikey: na.clone(),
             ws_password: na.clone(),
@@ -108,7 +109,7 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::TRACE,
-            timezone: EnvTimeZone::new(&na),
+            timezone: TimeZone::UTC,
             ws_address: na.clone(),
             ws_apikey: na.clone(),
             ws_password: na.clone(),
@@ -127,7 +128,7 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::DEBUG,
-            timezone: EnvTimeZone::new(na.clone()),
+            timezone: TimeZone::UTC,
             ws_address: na.clone(),
             ws_apikey: na.clone(),
             ws_password: na.clone(),
@@ -146,7 +147,7 @@ mod tests {
             download_time: (3, 0),
             location_backup: na.clone(),
             log_level: tracing::Level::INFO,
-            timezone: EnvTimeZone::new(na.clone()),
+            timezone: TimeZone::UTC,
             ws_address: na.clone(),
             ws_apikey: na.clone(),
             ws_password: na.clone(),

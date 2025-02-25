@@ -1,5 +1,4 @@
 use std::time::{Duration, Instant};
-use time::OffsetDateTime;
 use tokio::time::sleep;
 
 #[derive(Debug)]
@@ -55,7 +54,9 @@ impl ConnectionDetails {
         self.wait = Wait::Short;
         self.count = 0;
         self.connection_instant = Some(Instant::now());
-        let now = OffsetDateTime::now_utc();
-        tracing::debug!("connected at:: {} {}", now.date(), now.time());
+        tracing::debug!(
+            "{}",
+            jiff::Zoned::now().timestamp().strftime("%Y-%m-%d %H:%M:%S")
+        );
     }
 }
