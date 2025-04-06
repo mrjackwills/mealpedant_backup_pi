@@ -21,7 +21,7 @@ RUN addgroup -g ${DOCKER_GUID} -S ${DOCKER_APP_GROUP} \
 	&& chown ${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups
 
 # This gets automatically updated via create_release.sh
-ARG MEALPEDANT_BACKUP_PI_VERSION=v0.2.0
+ARG MEALPEDANT_BACKUP_PI_VERSION=v0.2.1
 
 RUN wget "https://github.com/mrjackwills/mealpedant_backup_pi/releases/download/${MEALPEDANT_BACKUP_PI_VERSION}/mealpedant_backup_pi_linux_armv6.tar.gz" \
 	&& tar xzvf mealpedant_backup_pi_linux_armv6.tar.gz mealpedant_backup_pi \

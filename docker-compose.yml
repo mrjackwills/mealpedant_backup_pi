@@ -1,7 +1,7 @@
 
 services:
   mealpedant_backup_pi:
-    image: mealpedant_backup_pi:0.2.0
+    image: mealpedant_backup_pi:0.2.1
     build:
       context: .
       dockerfile: Dockerfile

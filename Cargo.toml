@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_pi"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_pi"
