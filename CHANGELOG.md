@@ -1,13 +1,16 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.2'>v0.2.2</a>
+### 2025-05-24
+
 ### Chores
-+ Rust 1.87.0 linting, [eb480235ac1ba26128eede9f0130d72e917d4341]
-+ .devcontainer updated, [b92571ae35d9b22e27daef1a5da000f7bfbf5550]
-+ dependencies updated, [cab97151882a8badf8e77cdb2b62e575667cf329]
++ Rust 1.87.0 linting, [eb480235](https://github.com/mrjackwills/mealpedant_backup_pi/commit/eb480235ac1ba26128eede9f0130d72e917d4341)
++ .devcontainer updated, [b92571ae](https://github.com/mrjackwills/mealpedant_backup_pi/commit/b92571ae35d9b22e27daef1a5da000f7bfbf5550)
++ dependencies updated, [cab97151](https://github.com/mrjackwills/mealpedant_backup_pi/commit/cab97151882a8badf8e77cdb2b62e575667cf329)
 
 ### Features
-+ mimalloc, [b2c99156e079411c0beeed52e12171a7977abf64]
++ mimalloc, [b2c99156](https://github.com/mrjackwills/mealpedant_backup_pi/commit/b2c99156e079411c0beeed52e12171a7977abf64)
 
 ### Fixes
-+ run.sh sleep, [cbb4bb7db21c625b455ee70f4cbc2d986a2f0252]
++ run.sh sleep, [cbb4bb7d](https://github.com/mrjackwills/mealpedant_backup_pi/commit/cbb4bb7db21c625b455ee70f4cbc2d986a2f0252)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.1'>v0.2.1</a>
 ### 2025-04-06
