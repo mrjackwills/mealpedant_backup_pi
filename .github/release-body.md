@@ -1,7 +1,14 @@
-### 2025-04-06
+### 2025-05-24
 
 ### Chores
-+ dependencies updated, [e88a56ea3e261a772bb5fb932755e261cefd5ef3]
-+ Rust 1.86.0 linting, [cd4e5b312b33e4ea6b35160452d47b16752da672]
++ Rust 1.87.0 linting, [eb480235ac1ba26128eede9f0130d72e917d4341]
++ .devcontainer updated, [b92571ae35d9b22e27daef1a5da000f7bfbf5550]
++ dependencies updated, [cab97151882a8badf8e77cdb2b62e575667cf329]
+
+### Features
++ mimalloc, [b2c99156e079411c0beeed52e12171a7977abf64]
+
+### Fixes
++ run.sh sleep, [cbb4bb7db21c625b455ee70f4cbc2d986a2f0252]
 
 see <a href='https://github.com/mrjackwills/mealpedant_backup_pi/blob/main/CHANGELOG.md'>CHANGELOG.md</a> for more details
