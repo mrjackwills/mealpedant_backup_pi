@@ -1,3 +1,12 @@
+### Chores
++ Rust 1.87.0 linting, [eb480235ac1ba26128eede9f0130d72e917d4341]
++ .devcontainer updated, [b92571ae35d9b22e27daef1a5da000f7bfbf5550]
+
+### Fixes
+
+### Features
++ run.sh sleep, [cbb4bb7db21c625b455ee70f4cbc2d986a2f0252]
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.1'>v0.2.1</a>
 ### 2025-04-06
 
