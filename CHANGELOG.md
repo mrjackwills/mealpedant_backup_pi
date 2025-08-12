@@ -1,3 +1,11 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.3'>v0.2.3</a>
+### 2025-08-12
+
+### Chores
++ create_release.sh & run.sh updated, [0fc2b055](https://github.com/mrjackwills/mealpedant_backup_pi/commit/0fc2b0552db63ed4c2ce80003d04ccb68b8ca1b2)
++ dependencies updated, [7fe20ee4](https://github.com/mrjackwills/mealpedant_backup_pi/commit/7fe20ee42cf42daef95e1a61167f500322fad122)
++ if let chain, [85a45c5b](https://github.com/mrjackwills/mealpedant_backup_pi/commit/85a45c5bb04f326ad3034a57e13dade5c2d5a3d8)
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.2'>v0.2.2</a>
 ### 2025-05-24
 

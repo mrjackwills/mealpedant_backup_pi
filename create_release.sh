@@ -303,7 +303,7 @@ release_flow() {
 }
 
 build_choice() {
-	cmd=(dialog --backtitle "Choose option" --radiolist "choose" 14 80 16)
+	cmd=(dialog --backtitle "Choose option" --keep-tite --radiolist "choose" 14 80 16)
 	options=(
 		1 "armv6 linux musl" off
 		2 "aarch64 linux musl" off
@@ -337,7 +337,7 @@ build_choice() {
 }
 
 main() {
-	cmd=(dialog --backtitle "Choose option" --radiolist "choose" 14 80 16)
+	cmd=(dialog --backtitle "Choose option" --keep-tite --radiolist "choose" 14 80 16)
 	options=(
 		1 "test" off
 		2 "release" off
