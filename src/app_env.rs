@@ -61,11 +61,12 @@ impl AppEnv {
                 .ok()
                 .and_then(|v| i8::try_from(v).ok());
 
-            // todo if let chain
-            if let (Some(hour), Some(minute)) = (hour, minute) {
-                if hour < 24 && minute < 59 {
-                    return (hour, minute);
-                }
+            if let Some(hour) = hour
+                && let Some(minute) = minute
+                && hour < 24
+                && minute < 59
+            {
+                return (hour, minute);
             }
         }
         (3, 0)
