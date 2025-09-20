@@ -216,9 +216,9 @@ cross_build_armv6_linux() {
 # $1 is 0 or 1, if 1 won't run ask_continue
 cross_build_all() {
 	skip_confirm=$1
-	cargo_build_aarch64_linux
+	cross_build_aarch64_linux
 	[ "$skip_confirm" -ne 1 ] && ask_continue
-	cargo_build_armv6_linux
+	cross_build_armv6_linux
 	[ "$skip_confirm" -ne 1 ] && ask_continue
 }
 
