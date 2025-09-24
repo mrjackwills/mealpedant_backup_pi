@@ -189,6 +189,17 @@ cargo_test() {
 	ask_continue
 }
 
+cargo_clean() {
+	echo -e "${YELLOW}cargo clean${RESET}"
+	cargo clean
+}
+
+cargo_build() {
+	check_cross
+	echo -e "${YELLOW}cargo build --release${RESET}"
+	cargo build --release
+}
+
 # Check to see if cross is installed - if not then install
 check_cross() {
 	if ! [ -x "$(command -v cross)" ]; then
@@ -214,8 +225,13 @@ cross_build_armv6_linux() {
 # Build all releases that GitHub workflow would
 # This will download GB's of docker images
 # $1 is 0 or 1, if 1 won't run ask_continue
-cross_build_all() {
+cargo_cross_build_all() {
+	if ask_yn "cargo clean"; then
+		cargo_clean
+	fi
 	skip_confirm=$1
+	cargo_build
+	[ "$skip_confirm" -ne 1 ] && ask_continue
 	cross_build_aarch64_linux
 	[ "$skip_confirm" -ne 1 ] && ask_continue
 	cross_build_armv6_linux
@@ -243,7 +259,7 @@ release_flow() {
 	get_git_remote_url
 
 	cargo_test
-	cross_build_all 0
+	cargo_cross_build_all 0
 
 	cd "${CWD}" || error_close "Can't find ${CWD}"
 	check_tag
@@ -332,11 +348,11 @@ build_choice() {
 			exit
 			;;
 		3)
-			cross_build_all 0
+			cargo_cross_build_all 0
 			exit
 			;;
 		4)
-			cross_build_all 1
+			cargo_cross_build_all 1
 			exit
 			;;
 		esac
