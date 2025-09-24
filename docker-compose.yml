@@ -1,7 +1,7 @@
 
 services:
   mealpedant_backup_pi:
-    image: mealpedant_backup_pi:0.2.3
+    image: mealpedant_backup_pi:0.2.4
     build:
       context: .
       dockerfile: Dockerfile
@@ -23,7 +23,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 16M
+          memory: 32M
 networks:
   mealpedant_backup_pi-net:
     name: mealpedant_backup_pi-net
