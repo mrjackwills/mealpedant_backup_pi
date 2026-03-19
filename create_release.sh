@@ -136,7 +136,7 @@ update_version_number_in_files() {
 	sed -i -r -E "s=image: (\w+):[0-9]+\.[0-9]+\.[0-9]+=image: \1:${MAJOR}.${MINOR}.${PATCH}=g" ./docker-compose.yml
 
 	# Update version number on api dockerfile, to download latest release from github
-	sed -i -r -E "s/^ARG MEALPEDANT_BACKUP_PI_VERSION=v[0-9]+.[0-9]+.[0-9]+/ARG MEALPEDANT_BACKUP_PI_VERSION=v${MAJOR}.${MINOR}.${PATCH}/" ./Dockerfile
+	sed -i -r -E "s/^ARG CURRENT_VERSION=v[0-9]+.[0-9]+.[0-9]+/ARG CURRENT_VERSION=v${MAJOR}.${MINOR}.${PATCH}/" ./Dockerfile
 }
 
 # Work out the current version, based on git tags
@@ -208,18 +208,18 @@ check_cross() {
 	fi
 }
 
+# Build for linux x86 musl
+cross_build_x86_linux() {
+	check_cross
+	echo -e "\n${YELLOW}cross build --target x86_64-unknown-linux-musl --release${RESET}"
+	cross build --target x86_64-unknown-linux-musl --release
+}
+
 # Build for linux arm64 musl
 cross_build_aarch64_linux() {
 	check_cross
 	echo -e "${YELLOW}cross build --target aarch64-unknown-linux-musl --release${RESET}"
 	cross build --target aarch64-unknown-linux-musl --release
-}
-
-#  Build for linux armv6 musl
-cross_build_armv6_linux() {
-	check_cross
-	echo -e "${YELLOW}cross build --target arm-unknown-linux-musleabihf --release${RESET}"
-	cross build --target arm-unknown-linux-musleabihf --release
 }
 
 # Build all releases that GitHub workflow would
@@ -234,7 +234,7 @@ cargo_cross_build_all() {
 	[ "$skip_confirm" -ne 1 ] && ask_continue
 	cross_build_aarch64_linux
 	[ "$skip_confirm" -ne 1 ] && ask_continue
-	cross_build_armv6_linux
+	cross_build_x86_linux
 	[ "$skip_confirm" -ne 1 ] && ask_continue
 }
 
@@ -323,7 +323,7 @@ release_flow() {
 build_choice() {
 	cmd=(dialog --backtitle "Choose option" --keep-tite --radiolist "choose" 14 80 16)
 	options=(
-		1 "armv6 linux musl" off
+		1 "x86 linux musl" off
 		2 "aarch64 linux musl" off
 		3 "all" off
 		4 "all automatic" off
@@ -340,7 +340,7 @@ build_choice() {
 			exit
 			;;
 		1)
-			cross_build_armv6_linux
+			cross_build_x86_linux
 			exit
 			;;
 		2)
