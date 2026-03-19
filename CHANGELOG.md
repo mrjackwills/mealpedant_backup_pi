@@ -1,3 +1,15 @@
+# <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.3.0'>v0.3.0</a>
+### 2026-03-19
+
+### Chores
++ GitHub workflow updated, [ea828923](https://github.com/mrjackwills/mealpedant_backup_pi/commit/ea828923c85b172c23c1effaa75f7a7eb6414087)
+
+### Features
++ use async_channels, [c3219975](https://github.com/mrjackwills/mealpedant_backup_pi/commit/c32199753ba1fdcd714776ac56e35e9bdecc25c3)
+
+### Fixes
++ update docker-compose.yml, [cbb0bd86](https://github.com/mrjackwills/mealpedant_backup_pi/commit/cbb0bd8657f973e7c8cbfd9a3cb583f9e792d313)
+
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.2.4'>v0.2.4</a>
 ### 2025-09-24
 
@@ -190,7 +202,7 @@
 + dependencies updated, [3ba185d6](https://github.com/mrjackwills/mealpedant_backup_pi/commit/3ba185d61d3702ce7d384a6aa914e26a44683de2)
 + create_release 0.3.1, [126e31f9](https://github.com/mrjackwills/mealpedant_backup_pi/commit/126e31f9c44c2cb3212e6d565af997d9baa23e12)
 
-### Fatures
+### Features
 + download_time in app_env, [46e59490](https://github.com/mrjackwills/mealpedant_backup_pi/commit/46e5949087f6e1df6a978f37302bc95ab5d7d9a7), [7482bb5a](https://github.com/mrjackwills/mealpedant_backup_pi/commit/7482bb5a4b8af761a8b733dc7b46e96c6bdfda44)
 
 # <a href='https://github.com/mrjackwills/mealpedant_backup_pi/releases/tag/v0.1.5'>v0.1.5</a>
