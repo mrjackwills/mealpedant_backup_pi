@@ -30,9 +30,9 @@ RUN ARCH=$(uname -m) && \
         aarch64) SUFFIX=aarch64_musl ;; \
         *) exit 1 ;; \
     esac \ 
-    && wget "https://github.com/mrjackwills/mealpedant_backup_pi/releases/download/${CURRENT_VERSION}/mealpedant_backup_pi_${SUFFIX}.tar.gz" \
-    && tar xzvf "mealpedant_backup_pi_${SUFFIX}.tar.gz" mealpedant_backup_server \
-    && rm "mealpedant_backup_pi_${SUFFIX}.tar.gz"
+    && wget "https://github.com/mrjackwills/mealpedant_backup_client/releases/download/${CURRENT_VERSION}/mealpedant_backup_client_${SUFFIX}.tar.gz" \
+    && tar xzvf "mealpedant_backup_client_${SUFFIX}.tar.gz" mealpedant_backup_server \
+    && rm "mealpedant_backup_client_${SUFFIX}.tar.gz"
 
 ##########
 # RUNNER #
@@ -51,4 +51,4 @@ COPY --from=setup --chown=${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups /backu
 
 USER ${DOCKER_APP_USER}
 
-ENTRYPOINT ["/app/mealpedant_backup_pi"]
+ENTRYPOINT ["/app/mealpedant_backup_client"]

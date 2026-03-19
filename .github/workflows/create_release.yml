@@ -43,7 +43,7 @@ jobs:
       # Compress the binary
       - name: compress linux
         run: |
-          tar -C "target/${{ matrix.target }}/release" -czf "./mealpedant_backup_pi_${{ matrix.output_name }}" mealpedant_backup_pi
+          tar -C "target/${{ matrix.target }}/release" -czf "./mealpedant_backup_client_${{ matrix.output_name }}" mealpedant_backup_client
 
       # Upload output for release page
       - name: Upload Artifacts
@@ -51,7 +51,7 @@ jobs:
         with:
           if-no-files-found: error
           name: ${{ matrix.target }}
-          path: mealpedant_backup_pi_${{ matrix.output_name }}
+          path: mealpedant_backup_client_${{ matrix.output_name }}
           retention-days: 1
   
   ###################
@@ -77,4 +77,4 @@ jobs:
           bodyFile: ".github/release-body.md"
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-            **/mealpedant_backup_pi*.tar.gz
+            **/mealpedant_backup_client*.tar.gz

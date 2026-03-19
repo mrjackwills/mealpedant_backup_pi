@@ -1,11 +1,11 @@
 
 services:
-  mealpedant_backup_pi:
-    image: mealpedant_backup_pi:0.3.0
+  mealpedant_backup_client:
+    image: mealpedant_backup_client:0.3.0
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mealpedant_backup_pi
+    container_name: mealpedant_backup_client
     volumes:
       - $HOME/mealpedant_backup.d/backups:/backups
       - $HOME/mealpedant_backup.d/.env:/app_env/.env:ro
@@ -16,11 +16,11 @@ services:
     ipc: private
     restart: always
     networks:
-      - mealpedant_backup_pi-net
+      - mealpedant_backup_client-net
     deploy:
       resources:
         limits:
           memory: 128M
 networks:
-  mealpedant_backup_pi-net:
-    name: mealpedant_backup_pi-net
+  mealpedant_backup_client-net:
+    name: mealpedant_backup_client-net
