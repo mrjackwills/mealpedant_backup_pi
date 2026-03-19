@@ -17,13 +17,10 @@ services:
     restart: always
     networks:
       - mealpedant_backup_pi-net
-    logging:
-      options:
-        max-size: 4mb
     deploy:
       resources:
         limits:
-          memory: 32M
+          memory: 128M
 networks:
   mealpedant_backup_pi-net:
     name: mealpedant_backup_pi-net
