@@ -31,7 +31,7 @@ RUN ARCH=$(uname -m) && \
         *) exit 1 ;; \
     esac \ 
     && wget "https://github.com/mrjackwills/mealpedant_backup_client/releases/download/${CURRENT_VERSION}/mealpedant_backup_client_${SUFFIX}.tar.gz" \
-    && tar xzvf "mealpedant_backup_client_${SUFFIX}.tar.gz" mealpedant_backup_server \
+    && tar xzvf "mealpedant_backup_client_${SUFFIX}.tar.gz" mealpedant_backup_client \
     && rm "mealpedant_backup_client_${SUFFIX}.tar.gz"
 
 ##########
