@@ -1,6 +1,6 @@
 [package]
 name = "mealpedant_backup_client"
-version = "0.3.1"
+version = "0.3.2"
 edition = "2024"
 authors = ["Jack Wills <email@mrjackwills.com>"]
 repository = "https://www.github.com/mrjackwills/mealpedant_backup_client"
