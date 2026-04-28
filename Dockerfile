@@ -21,7 +21,7 @@ RUN addgroup -g ${DOCKER_GUID} -S ${DOCKER_APP_GROUP} \
     && chown ${DOCKER_APP_USER}:${DOCKER_APP_GROUP} /backups
 
 # This gets automatically updated via create_release.sh
-ARG CURRENT_VERSION=v0.3.1
+ARG CURRENT_VERSION=v0.3.2
 
 # Somewhat convoluted way to automatically select & download the correct package
 RUN ARCH=$(uname -m) && \
